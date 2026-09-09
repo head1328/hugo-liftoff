@@ -9,6 +9,12 @@
     radial-gradient(ellipse 80% 110% at 88% 100%,
       color-mix(in srgb, var(--color-secondary) 32%, transparent) 0%, transparent 68%),
     var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  text-align: center;
+  display: grid;
+  gap: var(--space-5);
 }
 
 [data-theme="light"] .cta {
@@ -18,12 +24,6 @@
     radial-gradient(ellipse 80% 110% at 88% 100%,
       color-mix(in srgb, var(--color-secondary) 16%, transparent) 0%, transparent 68%),
     var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  text-align: center;
-  display: grid;
-  gap: var(--space-5);
 }
 
 .cta__title {
