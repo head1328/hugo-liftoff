@@ -8,7 +8,7 @@ weight: 20
 Liftoff liest konventionelle Hugo-Konfiguration. Wenige Extras schalten
 das Landing-Chrome scharf.
 
-## Pflicht-Einstellung für Markup
+## Pflicht-Einstellungen für Markup
 
 Die Shortcodes geben HTML aus, Goldmark muss es also durchlassen. Fehlt
 das, erscheinen Feature-Cards und Hinweisboxen als escapter Text.
@@ -16,6 +16,29 @@ das, erscheinen Feature-Cards und Hinweisboxen als escapter Text.
 ```toml
 [markup.goldmark.renderer]
   unsafe = true
+```
+
+Das Syntax-Highlighting liegt in einem Stylesheet des Themes,
+`assets/css/syntax.css`. Damit es greift, muss Chroma Klassennamen
+ausgeben statt Inline-Styles. Letztere wirft eine
+Content-Security-Policy ohne `'unsafe-inline'` als Erstes weg, und alle
+Code-Blöcke stehen farblos da.
+
+```toml
+[markup.highlight]
+  style      = "github-dark"
+  noClasses  = false
+  lineNos    = false
+  codeFences = true
+  tabWidth   = 2
+```
+
+Ein anderer Chroma-Style braucht sein eigenes Stylesheet. Es gehört als
+`assets/css/syntax.css` in die eigene Site und sticht dort die Variante
+des Themes:
+
+```bash
+hugo gen chromastyles --style=dracula > assets/css/syntax.css
 ```
 
 ## Site-Params

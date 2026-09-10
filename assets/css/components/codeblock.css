@@ -107,6 +107,9 @@
   border-radius: 0;
   background: transparent;
   padding: var(--space-4);
+  /* Chroma emits tab-size inline only when noClasses is on; the theme
+   * runs on classes, so set it here. */
+  tab-size: 2;
 }
 
 .codeblock .highlight {

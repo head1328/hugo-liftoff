@@ -335,6 +335,12 @@ th {
   background-color: var(--color-bg-surface);
 }
 
+/* Column alignment, set by _markup/render-table.html */
+
+.table__cell--left { text-align: left; }
+.table__cell--center { text-align: center; }
+.table__cell--right { text-align: right; }
+
 /* Skip-to-content link, hidden until focus */
 
 .skip-link {

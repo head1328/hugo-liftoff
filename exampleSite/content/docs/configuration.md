@@ -8,7 +8,7 @@ weight: 20
 Liftoff reads conventional Hugo configuration. A few extras enable the
 landing-style chrome.
 
-## Required markup setting
+## Required markup settings
 
 The shortcodes emit HTML, so Goldmark must be allowed to pass it
 through. Without this, feature cards and callouts render as escaped
@@ -17,6 +17,29 @@ text.
 ```toml
 [markup.goldmark.renderer]
   unsafe = true
+```
+
+Syntax highlighting comes from a stylesheet the theme ships,
+`assets/css/syntax.css`, so Chroma has to emit class names for it to
+match. The inline variant is also the first thing a
+Content-Security-Policy without `'unsafe-inline'` throws away, which
+leaves every code block colourless.
+
+```toml
+[markup.highlight]
+  style      = "github-dark"
+  noClasses  = false
+  lineNos    = false
+  codeFences = true
+  tabWidth   = 2
+```
+
+Another Chroma style needs its own stylesheet. Write it to
+`assets/css/syntax.css` in your site, where it takes precedence over the
+theme's copy:
+
+```bash
+hugo gen chromastyles --style=dracula > assets/css/syntax.css
 ```
 
 ## Site params

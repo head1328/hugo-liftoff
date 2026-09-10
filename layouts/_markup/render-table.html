@@ -1,0 +1,33 @@
+{{- /*
+Render hook for markdown tables.
+
+Column alignment travels as a class on the cell. Goldmark's own output
+puts it in a style attribute, which a Content-Security-Policy without
+'unsafe-inline' drops, leaving the column left-aligned.
+*/ -}}
+<table
+  {{- range $k, $v := .Attributes -}}
+    {{- if $v -}}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}
+>
+  <thead>
+    {{- range .THead }}
+    <tr>
+      {{- range . }}
+      <th{{ with .Alignment }} class="table__cell--{{ . }}"{{ end }}>{{ .Text }}</th>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </thead>
+  <tbody>
+    {{- range .TBody }}
+    <tr>
+      {{- range . }}
+      <td{{ with .Alignment }} class="table__cell--{{ . }}"{{ end }}>{{ .Text }}</td>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </tbody>
+</table>
