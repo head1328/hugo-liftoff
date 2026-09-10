@@ -129,9 +129,16 @@ Anytown, Germany
   url = "https://codeberg.org/head1328/hugo-liftoff/src/branch/main/LICENSE"
 
 [markup]
+  # Chroma emits class names rather than inline style attributes. The
+  # theme ships the matching colours as assets/css/syntax.css, so code
+  # blocks keep their highlighting under a Content-Security-Policy
+  # without 'unsafe-inline'. A different `style` needs that file
+  # regenerated:
+  #
+  #   hugo gen chromastyles --style=<name> > assets/css/syntax.css
   [markup.highlight]
     style = "github-dark"
-    noClasses = true
+    noClasses = false
     lineNos = false
     codeFences = true
     tabWidth = 2

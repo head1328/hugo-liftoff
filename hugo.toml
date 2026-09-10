@@ -4,6 +4,10 @@
 # every site that uses the theme, so only the Hugo version constraint
 # belongs in this file. Demo site configuration lives in
 # exampleSite/hugo.toml.
+#
+# Note that [markup] cannot live here: Hugo does not merge it from theme
+# configuration. Sites must set markup.highlight themselves; see
+# exampleSite/hugo.toml and content/docs/configuration.md.
 
 [module]
   [module.hugoVersion]
