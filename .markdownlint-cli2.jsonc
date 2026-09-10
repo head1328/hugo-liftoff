@@ -2,7 +2,9 @@
   "config": {
     "MD013": false,
     "MD033": false,
-    "MD041": false
+    "MD041": false,
+    // CHANGELOG.md repeats Added/Changed/Fixed under every release.
+    "MD024": { "siblings_only": true }
   },
   "globs": ["**/*.md"],
   "gitignore": true,
