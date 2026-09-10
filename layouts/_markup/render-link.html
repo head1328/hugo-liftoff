@@ -17,4 +17,4 @@ relLangURL. Fragments, external URLs and other schemes are left alone.
 {{- else if strings.HasPrefix $dest "/" -}}
   {{- $dest = $dest | relLangURL -}}
 {{- end -}}
-<a href="{{ $dest }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} rel="noopener"{{ end }}>{{ .Text }}</a>
+<a href="{{ $dest }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} rel="noopener"{{ end }}>{{ .Text }}</a>{{- "" -}}
