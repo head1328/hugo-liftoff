@@ -14,6 +14,11 @@
   box-shadow: var(--shadow-lg);
 }
 
+[data-theme="light"] .codeblock ::selection {
+  color: var(--color-code-selection-text);
+  background-color: var(--color-code-selection-bg);
+}
+
 /* Featured: a 1px conic-gradient border with a bright segment that
  * orbits the block once every few seconds. The mask-composite trick
  * keeps the gradient visible only inside the border ring; the centre
