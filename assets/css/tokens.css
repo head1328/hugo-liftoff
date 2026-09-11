@@ -32,6 +32,8 @@
   /* Code surface */
   --color-code-bg: #070b1a;
   --color-code-border: rgba(255, 255, 255, 0.06);
+  --color-code-selection-text: var(--color-text);
+  --color-code-selection-bg: var(--color-accent);
 
   /* Spacing scale, 4px base */
   --space-0: 0;
