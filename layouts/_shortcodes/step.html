@@ -13,7 +13,7 @@ feature-grid, etc.) and prose work as expected.
 {{- $title := .Get "title" -}}
 <section class="step">
   <header class="step__header">
-    {{- with $number }}<span class="step__number">Step {{ . }}</span>{{ end }}
+    {{- with $number }}<span class="step__number">{{ i18n "step" | default "Step" }} {{ . }}</span>{{ end }}
     {{- if and $number $title }}<span class="step__sep" aria-hidden="true">:</span>{{ end }}
     {{- with $title }}<h2 class="step__title">{{ . }}</h2>{{ end }}
   </header>
