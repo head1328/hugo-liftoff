@@ -361,6 +361,30 @@ dürfen sich pro Tab unterscheiden.
 
 ---
 
+## screenshot {#screenshot}
+
+Bild mit optionaler Bildunterschrift. Ein Klick zeigt es in voller
+Größe in einer Lightbox; Esc, der Schließen-Button oder ein Klick
+neben das Bild blendet sie wieder aus. Ohne JavaScript öffnet der Link
+das Bild direkt.
+
+| Param     | Typ    | Beschreibung                                                     |
+|-----------|--------|------------------------------------------------------------------|
+| `src`     | string | Ressource im Page Bundle, alternativ eine Datei unter `assets/`. |
+| `alt`     | string | Alternativtext.                                                  |
+| `caption` | string | Bildunterschrift unter dem Bild und in der Lightbox.             |
+
+Fehlt die Datei, gibt es nur eine Warnung. Die Seite baut also auch,
+bevor alle Screenshots vorliegen.
+
+```markdown
+{{</* screenshot src="img/screenshot-demo.svg" alt="Landingpage" caption="Hero mit Code-Panel und Feature-Karten." */>}}
+```
+
+{{< screenshot src="img/screenshot-demo.svg" alt="Landingpage" caption="Hero mit Code-Panel und Feature-Karten." >}}
+
+---
+
 ## section {#section}
 
 Einfacher Container mit Standard-Inhaltsbreite. Praktisch, um auf
