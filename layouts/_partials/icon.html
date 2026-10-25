@@ -29,13 +29,22 @@ Examples:
     {{- end -}}
   {{- else -}}
     {{- $url := printf "https://api.iconify.design/%s/%s.svg" $set $id -}}
+    {{- /* A failed fetch fails production builds; otherwise a CI run with
+           an empty cache would deploy the site without icons. GetRemote
+           returns no error but a nil value on 404. */ -}}
     {{- $res := try (resources.GetRemote $url) -}}
+    {{- $msg := "" -}}
     {{- with $res.Err -}}
-      {{- warnf "icon.html: failed to fetch %s: %s" $name . -}}
+      {{- $msg = printf "icon.html: failed to fetch %s: %s" $name . -}}
     {{- else -}}
       {{- with $res.Value -}}
         {{ .Content | safeHTML }}
+      {{- else -}}
+        {{- $msg = printf "icon.html: %s not found at %s" $name $url -}}
       {{- end -}}
+    {{- end -}}
+    {{- with $msg -}}
+      {{- if hugo.IsProduction }}{{ errorf "%s" . }}{{ else }}{{ warnf "%s" . }}{{ end -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
