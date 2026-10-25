@@ -1,0 +1,20 @@
+HTTP/2.0 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Accept-Encoding
+Access-Control-Allow-Methods: GET, OPTIONS
+Access-Control-Allow-Origin: *
+Access-Control-Max-Age: 86400
+Age: 104105
+Cache-Control: public, max-age=604800, min-refresh=604800, immutable
+Cf-Cache-Status: HIT
+Cf-Ray: a502fafaeb410567-MUC
+Content-Type: image/svg+xml; charset=utf-8
+Cross-Origin-Resource-Policy: cross-origin
+Date: Sun, 25 Oct 2026 17:35:54 GMT
+Last-Modified: Sat, 24 Oct 2026 12:40:48 GMT
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=g9HtckXfteNb4k0KiFLZk8Mvp2IXdGQ4z52JOZWZVPC6%2BV%2FHNH08ioKGqReODgLcyakvsWBp2Npl2%2F6ewwCOCUv%2BCkrO3yJZ012nGb0b61Ldnu65VFtfBSXBhf0%2BqmkOXclcDg%3D%3D"}]}
+Server: cloudflare
+X-Etags-1: 3b5b0cdaeaa0b829e3db4fa29e58ed95
+X-Etags-2: 3b5b0cdaeaa0b829e3db4fa29e58ed95
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z"/></svg>

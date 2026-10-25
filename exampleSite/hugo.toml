@@ -145,6 +145,12 @@ Anytown, Germany
   [markup.goldmark.renderer]
     unsafe = true
 
+[caches]
+  # Committed, so CI builds do not hit the rate-limited Iconify API.
+  [caches.getresource]
+    dir = ":resourceDir/iconify"
+    maxAge = -1
+
 [module]
   [module.hugoVersion]
     extended = true
