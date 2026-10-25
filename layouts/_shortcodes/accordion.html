@@ -1,0 +1,16 @@
+{{- /*
+Accordion wrapper. Use with nested accordion-item shortcodes.
+
+  {{< accordion exclusive="true" >}}
+    {{< accordion-item title="Is it free?" >}}
+    Markdown answer.
+    {{< /accordion-item >}}
+  {{< /accordion >}}
+
+Parameters:
+  exclusive  "true" to keep at most one item open. Uses the native
+             <details name> grouping, so no JavaScript is needed.
+*/ -}}
+<div class="accordion">
+  {{ .Inner }}
+</div>

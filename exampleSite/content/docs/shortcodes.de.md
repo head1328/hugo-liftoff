@@ -228,6 +228,57 @@ Code-Fences und verschachtelte Shortcodes funktionieren also.
 
 ---
 
+## accordion / accordion-item {#accordion--accordion-item}
+
+Aufklappbare Einträge für FAQs und Nachschlagelisten. `accordion`
+umschließt einen oder mehrere `accordion-item`-Shortcodes. Jeder
+Eintrag ist ein natives `<details>`-Element und kommt ohne JavaScript
+aus. Aus dem Titel entsteht die Anker-ID: `#ist-liftoff-kostenlos`
+springt direkt zum Eintrag "Ist liftoff kostenlos?".
+
+| Param                  | Typ      | Beschreibung                                       |
+|------------------------|----------|----------------------------------------------------|
+| accordion `exclusive`  | bool     | `true` lässt höchstens einen Eintrag offen.        |
+| accordion-item `title` | string   | Titelzeile, zugleich Quelle der Anker-ID.          |
+| accordion-item `open`  | bool     | `true` zeigt den Eintrag aufgeklappt an.           |
+| accordion-item _body_  | markdown | Inhalt. Code-Fences und Shortcodes erlaubt.        |
+
+````markdown
+{{</* accordion exclusive="true" */>}}
+
+{{</* accordion-item title="Ist liftoff kostenlos?" open="true" */>}}
+Ja, das Theme steht unter MIT-Lizenz.
+{{</* /accordion-item */>}}
+
+{{</* accordion-item title="Welche Hugo-Version brauche ich?" */>}}
+Hugo extended ab 0.146:
+
+```zsh
+hugo version
+```
+{{</* /accordion-item */>}}
+
+{{</* /accordion */>}}
+````
+
+{{< accordion exclusive="true" >}}
+
+{{< accordion-item title="Ist liftoff kostenlos?" open="true" >}}
+Ja, das Theme steht unter MIT-Lizenz.
+{{< /accordion-item >}}
+
+{{< accordion-item title="Welche Hugo-Version brauche ich?" >}}
+Hugo extended ab 0.146:
+
+```zsh
+hugo version
+```
+{{< /accordion-item >}}
+
+{{< /accordion >}}
+
+---
+
 ## steps / step {#steps--step}
 
 Vertikaler, nummerierter Onboarding-Flow. `steps` ist der Container;

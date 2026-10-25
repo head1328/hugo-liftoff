@@ -1,0 +1,25 @@
+{{- /*
+Nested inside {{< accordion >}}. Renders a native <details> element.
+
+Parameters:
+  title  Summary line, also the source of the anchor id, so
+         /faq/#is-it-free links to the item titled "Is it free?".
+  open   "true" to render the item expanded.
+*/ -}}
+{{- $title := .Get "title" -}}
+{{- $open := eq (.Get "open" | default "") "true" -}}
+{{- $group := "" -}}
+{{- with .Parent }}
+  {{- if eq (.Get "exclusive" | default "") "true" }}
+    {{- $group = printf "accordion-%d" .Ordinal }}
+  {{- end }}
+{{- end }}
+<details class="accordion__item" id="{{ anchorize $title }}"{{ with $group }} name="{{ . }}"{{ end }}{{ if $open }} open{{ end }}>
+  <summary class="accordion__summary">
+    <span>{{ $title }}</span>
+    {{ partial "icon.html" "mdi:chevron-down" }}
+  </summary>
+  <div class="accordion__panel">
+    {{ .Inner | .Page.RenderString (dict "display" "block") }}
+  </div>
+</details>
