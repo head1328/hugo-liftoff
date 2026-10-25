@@ -38,4 +38,5 @@ repos:
         pass_filenames: false
         files: '^(layouts/|assets/|i18n/|exampleSite/)'
 
-exclude: ^\.devcontainer/devcontainer-lock\.json$
+# The Iconify cache holds raw HTTP responses with CRLF headers.
+exclude: ^(\.devcontainer/devcontainer-lock\.json|exampleSite/resources/iconify/.*)$

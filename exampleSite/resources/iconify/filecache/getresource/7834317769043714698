@@ -1,0 +1,20 @@
+HTTP/2.0 200 OK
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Accept-Encoding
+Access-Control-Allow-Methods: GET, OPTIONS
+Access-Control-Allow-Origin: *
+Access-Control-Max-Age: 86400
+Age: 1171
+Cache-Control: public, max-age=604800, min-refresh=604800, immutable
+Cf-Cache-Status: HIT
+Cf-Ray: a502fafb6c120567-MUC
+Content-Type: image/svg+xml; charset=utf-8
+Cross-Origin-Resource-Policy: cross-origin
+Date: Sun, 25 Oct 2026 17:35:54 GMT
+Last-Modified: Sun, 25 Oct 2026 17:16:22 GMT
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=8CFTMmg930zhl5ijIGefMroZmCSQTJyGueCHbFoPLEvnk6jAvj0kCYRV8P%2FN5Zy5LlnxzHxYaeMjZl1ORTb0GvbtI%2BfqT%2BiO9ykLdHFftn%2F32gPBSZ9LwbnjM%2FQR4VfsV5Oktg%3D%3D"}]}
+Server: cloudflare
+X-Etags-1: 7bd88d85cfb9dd1b9e731cc700d70c88
+X-Etags-2: 7bd88d85cfb9dd1b9e731cc700d70c88
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m13.16 22.19l-1.66-3.84c1.6-.58 3.07-1.35 4.43-2.27l-2.78 6.11m-7.5-9.69l-3.84-1.65l6.11-2.78a20 20 0 0 0-2.27 4.43M21.66 2.35S23.78 7.31 18.11 13c-2.2 2.17-4.58 3.5-6.73 4.34c-.74.28-1.57.1-2.12-.46l-2.13-2.13c-.56-.56-.74-1.38-.47-2.13C7.5 10.5 8.83 8.09 11 5.89C16.69.216 21.66 2.35 21.66 2.35M6.25 22H4.84l4.09-4.1c.3.21.63.36.97.45zM2 22v-1.41l4.77-4.78l1.43 1.42L3.41 22zm0-2.84v-1.41l3.65-3.65c.09.35.24.68.45.97zM16 6a2 2 0 1 0 0 4c1.11 0 2-.89 2-2a2 2 0 0 0-2-2"/></svg>

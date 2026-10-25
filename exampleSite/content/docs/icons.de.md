@@ -88,10 +88,31 @@ Die Ausgabe ist Inline-SVG, Farben und Größen folgen CSS.
 
 ## Caching und Offline-Builds
 
-Iconify-SVGs werden einmal per `resources.GetRemote` geholt und in
-Hugos Resource-Cache (`resources/_gen/`) abgelegt. Spätere Builds
-nutzen den Cache; commit `resources/_gen/`, wenn der Build voll
-reproduzierbar ohne Netzwerk laufen soll.
+Iconify-SVGs holt Hugo per `resources.GetRemote` und legt sie im
+`getresource`-Cache ab. Der liegt per Default außerhalb des Projekts,
+jeder CI-Lauf startet also leer und fragt jedes Icon neu an. Iconify
+antwortet geteilten CI-IPs mit `429 Too Many Requests`.
 
-Findet Hugo einen Iconify-Identifier nicht, gibt es eine Warnung zur
-Build-Zeit, die Seite rendert aber trotzdem ohne das fehlende Icon.
+Abhilfe schafft ein Cache im Projekt, der mit eingecheckt wird:
+
+```toml
+[caches.getresource]
+  dir = ":resourceDir/iconify"
+  maxAge = -1
+```
+
+Einmal lokal bauen, dann `resources/iconify/` committen. Die CI liest
+daraus und holt nur Icons, die seitdem neu dazugekommen sind. Das
+Verzeichnis gehört nicht unter `resources/_gen/`, das steht meist in
+der `.gitignore`.
+
+Die Cache-Dateien sind rohe HTTP-Responses mit CRLF-Zeilenenden. Als
+binary markiert, lassen Git und Line-Ending-Hooks sie in Ruhe:
+
+```text
+# .gitattributes
+resources/iconify/** binary
+```
+
+Lässt sich ein Icon nicht laden, bricht der Production-Build (`hugo`)
+ab, damit keine Seite ohne Icons live geht. `hugo server` warnt nur.
