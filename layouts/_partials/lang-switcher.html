@@ -1,7 +1,11 @@
 {{- /*
 Language switcher as native <details> dropdown. Hidden when the site
 has only one language.
+
+Each entry links to the translation of the current page and falls back
+to the home page of a language the page is not translated into.
 */ -}}
+{{- $page := . -}}
 {{- $translations := site.Home.AllTranslations -}}
 {{- if gt (len $translations) 1 }}
   <details class="lang-switcher">
@@ -11,10 +15,15 @@ has only one language.
     </summary>
     <ul class="lang-switcher__menu">
       {{- range $translations }}
+        {{- $lang := .Language.Lang }}
+        {{- $target := . }}
+        {{- with where $page.AllTranslations "Language.Lang" $lang }}
+          {{- $target = index . 0 }}
+        {{- end }}
         <li>
-          <a href="{{ .RelPermalink }}"
-            {{- if eq .Language.Lang $.Site.Language.Lang }} class="active" aria-current="true"{{ end }}>
-            {{ or .Language.Label .Language.Lang }}
+          <a href="{{ $target.RelPermalink }}" hreflang="{{ $lang }}"
+            {{- if eq $lang site.Language.Lang }} class="active" aria-current="true"{{ end }}>
+            {{ or .Language.Label $lang }}
           </a>
         </li>
       {{- end }}
