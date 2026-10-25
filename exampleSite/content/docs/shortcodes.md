@@ -226,6 +226,57 @@ markdown, so fenced code blocks (and nested shortcodes) work.
 
 ---
 
+## accordion / accordion-item {#accordion--accordion-item}
+
+Collapsible items for FAQs and reference lists. `accordion` wraps one
+or more `accordion-item` shortcodes. Each item is a native `<details>`
+element, so it works without JavaScript. The item title doubles as
+anchor id: `#is-liftoff-free` links straight to the item titled
+"Is liftoff free?".
+
+| Param                  | Type     | Description                                     |
+|------------------------|----------|-------------------------------------------------|
+| accordion `exclusive`  | bool     | `true` keeps at most one item open at a time.   |
+| accordion-item `title` | string   | Summary line, also the source of the anchor id. |
+| accordion-item `open`  | bool     | `true` renders the item expanded.               |
+| accordion-item _body_  | markdown | Item content. Code fences and shortcodes work.  |
+
+````markdown
+{{</* accordion exclusive="true" */>}}
+
+{{</* accordion-item title="Is liftoff free?" open="true" */>}}
+Yes. The theme is MIT licensed.
+{{</* /accordion-item */>}}
+
+{{</* accordion-item title="Which Hugo version do I need?" */>}}
+Hugo extended 0.146 or newer:
+
+```zsh
+hugo version
+```
+{{</* /accordion-item */>}}
+
+{{</* /accordion */>}}
+````
+
+{{< accordion exclusive="true" >}}
+
+{{< accordion-item title="Is liftoff free?" open="true" >}}
+Yes. The theme is MIT licensed.
+{{< /accordion-item >}}
+
+{{< accordion-item title="Which Hugo version do I need?" >}}
+Hugo extended 0.146 or newer:
+
+```zsh
+hugo version
+```
+{{< /accordion-item >}}
+
+{{< /accordion >}}
+
+---
+
 ## steps / step {#steps--step}
 
 Vertical, numbered onboarding flow. `steps` is the container; each
