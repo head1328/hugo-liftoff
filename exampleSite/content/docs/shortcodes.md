@@ -409,6 +409,29 @@ amount of steps can differ per tab.
 
 ---
 
+## screenshot {#screenshot}
+
+Image with an optional caption. A click opens it full size in a
+lightbox; Esc, the close button or a click on the backdrop closes it.
+Without JavaScript the link opens the image directly.
+
+| Param     | Type   | Description                                                 |
+|-----------|--------|-------------------------------------------------------------|
+| `src`     | string | Page bundle resource, falls back to a file under `assets/`. |
+| `alt`     | string | Alternative text.                                           |
+| `caption` | string | Caption below the image and in the lightbox.                |
+
+A missing file only logs a warning, so the page builds before every
+screenshot exists.
+
+```markdown
+{{</* screenshot src="img/screenshot-demo.svg" alt="Landing page" caption="Hero with code panel and feature cards." */>}}
+```
+
+{{< screenshot src="img/screenshot-demo.svg" alt="Landing page" caption="Hero with code panel and feature cards." >}}
+
+---
+
 ## section {#section}
 
 Plain container with the standard content width. Use it to group

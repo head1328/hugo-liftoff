@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Mock-up of a liftoff landing page">
+  <rect width="960" height="540" fill="#0b1020"/>
+  <rect width="960" height="56" fill="#131a2e"/>
+  <circle cx="40" cy="28" r="12" fill="#22d3ee"/>
+  <g fill="#8b95ad">
+    <rect x="640" y="22" width="56" height="12" rx="6"/>
+    <rect x="716" y="22" width="56" height="12" rx="6"/>
+    <rect x="792" y="22" width="56" height="12" rx="6"/>
+  </g>
+  <rect x="80" y="130" width="420" height="36" rx="8" fill="#e6edf7"/>
+  <rect x="80" y="180" width="300" height="36" rx="8" fill="#22d3ee"/>
+  <g fill="#8b95ad">
+    <rect x="80" y="246" width="380" height="12" rx="6"/>
+    <rect x="80" y="268" width="340" height="12" rx="6"/>
+  </g>
+  <rect x="80" y="310" width="140" height="44" rx="10" fill="#22d3ee"/>
+  <rect x="236" y="310" width="140" height="44" rx="10" fill="none" stroke="#8b95ad"/>
+  <rect x="540" y="110" width="340" height="260" rx="14" fill="#131a2e" stroke="#22d3ee"/>
+  <g font-family="monospace" font-size="16" fill="#e6edf7">
+    <text x="568" y="160">$ hugo mod get</text>
+    <text x="568" y="196" fill="#8b95ad">go: added liftoff</text>
+    <text x="568" y="232">$ hugo server</text>
+    <text x="568" y="268" fill="#8b95ad">Web Server is available</text>
+  </g>
+  <g fill="#131a2e" stroke="#22314f">
+    <rect x="80" y="420" width="250" height="80" rx="12"/>
+    <rect x="355" y="420" width="250" height="80" rx="12"/>
+    <rect x="630" y="420" width="250" height="80" rx="12"/>
+  </g>
+</svg>

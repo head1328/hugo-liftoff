@@ -1,0 +1,28 @@
+{{- /*
+Screenshot that opens in a lightbox on click.
+
+  {{< screenshot src="dashboard.png" alt="Dashboard" caption="..." >}}
+
+Parameters:
+  src      Page bundle resource, falling back to a file under assets/.
+  alt      Alternative text.
+  caption  Optional caption below the image and in the lightbox.
+
+A missing file only warns, so the page can ship before every image
+exists. The plain link is the no-JS fallback.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- $caption := .Get "caption" -}}
+{{- with or (.Page.Resources.Get $src) (resources.Get $src) }}
+<figure class="screenshot">
+  <a href="{{ .RelPermalink }}" data-lightbox data-close-label="{{ i18n "close" | default "Close" }}"{{ with $caption }} data-caption="{{ . }}"{{ end }}>
+    {{- /* Width and height reserve space before load; SVGs have no pixel size. */ -}}
+    <img src="{{ .RelPermalink }}"{{ if ne .MediaType.SubType "svg" }} width="{{ .Width }}" height="{{ .Height }}"{{ end }} alt="{{ $.Get "alt" }}" loading="lazy">
+  </a>
+  {{- with $caption }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>
+{{- else }}
+  {{- warnf "%s: screenshot %q not found" $.Page.File.Path $src }}
+{{- end }}

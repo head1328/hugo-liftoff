@@ -88,6 +88,44 @@
     });
   });
 
+  /* Lightbox for links marked with data-lightbox. One shared <dialog>,
+     created on first use; Esc closing comes with showModal(). */
+
+  let lightbox;
+
+  const getLightbox = () => {
+    if (lightbox) return lightbox;
+    lightbox = document.createElement("dialog");
+    lightbox.className = "lightbox";
+    lightbox.innerHTML =
+      '<button class="lightbox__close" type="button">&times;</button>' +
+      '<figure class="lightbox__figure"><img alt=""><figcaption></figcaption></figure>';
+    // A click outside the figure lands on the dialog itself (the backdrop).
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox || event.target.closest(".lightbox__close")) {
+        lightbox.close();
+      }
+    });
+    document.body.append(lightbox);
+    return lightbox;
+  };
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-lightbox]");
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey) return;
+    event.preventDefault();
+    const box = getLightbox();
+    box.querySelector(".lightbox__close")
+      .setAttribute("aria-label", link.dataset.closeLabel || "Close");
+    const img = box.querySelector("img");
+    img.src = link.href;
+    img.alt = link.querySelector("img")?.alt ?? "";
+    const caption = box.querySelector("figcaption");
+    caption.textContent = link.dataset.caption ?? "";
+    caption.hidden = !link.dataset.caption;
+    box.showModal();
+  });
+
   /* Click delegation: theme toggle, mobile menu, code copy, blueprint filter. */
 
   document.addEventListener("click", (event) => {
