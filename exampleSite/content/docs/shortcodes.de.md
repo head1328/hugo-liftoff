@@ -127,6 +127,7 @@ mit `http(s)://` oder `mailto:` bleiben unverändert.
 | `size`         | enum   | `sm`, `md` (default), `lg`.                               |
 | `icon`         | string | Iconify-Identifier.                                       |
 | `iconPosition` | enum   | `left` (default) oder `right`.                            |
+| `version`      | string | Versions-Badge: fester String oder `latest`, siehe [Konfiguration](/docs/configuration/#release-version). |
 | _body_         | text   | Label.                                                    |
 
 ```markdown
@@ -139,6 +140,22 @@ mit `http(s)://` oder `mailto:` bleiben unverändert.
 {{< buttons >}}
   {{< button href="/docs" variant="primary" size="lg" icon="mdi:rocket-launch" >}}Loslegen{{< /button >}}
   {{< button href="/docs" variant="ghost" size="lg" icon="mdi:arrow-right" iconPosition="right" >}}Zur Doku{{< /button >}}
+{{< /buttons >}}
+
+Download-Buttons kombinieren Betriebssystem-Icon und aktuelle Version:
+
+```markdown
+{{</* buttons */>}}
+  {{</* button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="primary" icon="simple-icons:apple" version="latest" */>}}Für macOS laden{{</* /button */>}}
+  {{</* button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="simple-icons:linux" version="latest" */>}}Für Linux laden{{</* /button */>}}
+  {{</* button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="mdi:microsoft-windows" version="latest" */>}}Für Windows laden{{</* /button */>}}
+{{</* /buttons */>}}
+```
+
+{{< buttons >}}
+  {{< button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="primary" icon="simple-icons:apple" version="latest" >}}Für macOS laden{{< /button >}}
+  {{< button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="simple-icons:linux" version="latest" >}}Für Linux laden{{< /button >}}
+  {{< button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="mdi:microsoft-windows" version="latest" >}}Für Windows laden{{< /button >}}
 {{< /buttons >}}
 
 ---

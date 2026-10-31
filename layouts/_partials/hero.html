@@ -8,8 +8,8 @@ Hero section. Reads .Params.hero from the page front matter.
     title: "..."
     titleAccent: "..."
     subtitle: "..."
-    primary: { label, url }
-    secondary: { label, url }
+    primary: { label, url, version }
+    secondary: { label, url, version }
     code:
       tabs:
         - { name, language, content }
@@ -50,10 +50,14 @@ Hero section. Reads .Params.hero from the page front matter.
       {{- if or .primary .secondary }}
         <div class="hero__actions">
           {{- with .primary }}
-            <a class="btn btn--primary btn--lg" href="{{ .url | relLangURL }}">{{ .label }}</a>
+            <a class="btn btn--primary btn--lg" href="{{ .url | relLangURL }}"><span>{{ .label }}</span>
+              {{- with .version }}{{ with partialCached "release-version.html" . . }}<span class="btn__version">{{ . }}</span>{{ end }}{{ end -}}
+            </a>
           {{- end }}
           {{- with .secondary }}
-            <a class="btn btn--ghost btn--lg" href="{{ .url | relLangURL }}">{{ .label }}</a>
+            <a class="btn btn--ghost btn--lg" href="{{ .url | relLangURL }}"><span>{{ .label }}</span>
+              {{- with .version }}{{ with partialCached "release-version.html" . . }}<span class="btn__version">{{ . }}</span>{{ end }}{{ end -}}
+            </a>
           {{- end }}
         </div>
       {{- end }}

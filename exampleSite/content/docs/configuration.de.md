@@ -103,6 +103,54 @@ Build-Zeit.
   name  = "liftoff"
 ```
 
+### Release-Version {#release-version}
+
+Buttons und Hero-Aktionen können neben dem Label eine Version zeigen,
+etwa `Download | v1.2.0`. Ein fester Wert wie `version="v1.2.0"`
+erscheint genau so. `version="latest"` löst Hugo beim Build auf, der
+erste Treffer zählt:
+
+1. **Neuester Release** aus `params.repo`, abgefragt über die REST-API
+   des Hosts.
+2. **Neuester Tag** desselben Repos, für Projekte, die nur Tags und
+   keine Releases veröffentlichen.
+3. **`params.release.version`**, von Hand gepflegt.
+
+Liefert keine der drei Quellen etwas, meldet der Build eine Warnung und
+der Button erscheint ohne Version.
+
+```toml
+[params.release]
+  lookup  = true      # false überspringt Schritt 1 und 2
+  version = "v1.2.0"  # Fallback, mit lookup = false die einzige Quelle
+```
+
+Zur Abfrage:
+
+- Als Host funktionieren nur `codeberg` und `github`, wie bei der
+  Sternezahl. Bei allen anderen geht es direkt mit Schritt 3 weiter.
+- Die API wird bei `hugo` und `hugo server` aufgerufen, nicht im
+  Browser. Besucher kontaktieren den Host nie, eine Content Security
+  Policy stört nicht.
+- Das Ergebnis bleibt einen Tag im Cache. Ein neuer Release erscheint
+  spätestens mit dem ersten Build am Folgetag.
+- Netzwerkfehler, Rate-Limits oder unerwartete Antworten erzeugen nur
+  eine Warnung, der Build läuft mit dem nächsten Schritt weiter.
+- Läuft der Build offline, hinter einem Proxy oder macht die API
+  Probleme, schaltet `lookup = false` die Abfrage ab. Die Version kommt
+  dann nur noch aus `params.release.version`.
+- Wer den `getresource`-Cache von Hugo committet, etwa um in der CI
+  dem Rate-Limit von Iconify zu entgehen, bekommt dort durch die Abfrage
+  einmal täglich neue Cache-Dateien. Abhilfe: die Abfrage in
+  `hugo.toml` abschalten und nur in der CI einschalten, so wie es diese
+  Demo-Site macht. Lokal erscheint dann `params.release.version`.
+
+  ```yaml
+  # Woodpecker-Step (GitHub Actions: env)
+  environment:
+    HUGO_PARAMS_RELEASE_LOOKUP: "true"
+  ```
+
 ### Social-Links
 
 Erscheinen im Footer. `icon` ist ein Iconify-Bezeichner. Interne Pfade

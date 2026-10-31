@@ -11,7 +11,9 @@ clone:
 
 steps:
   - name: build exampleSite
-    image: hugomods/hugo:git-0.164.0
+    image: hugomods/hugo:git-0.165.0
+    environment:
+      HUGO_PARAMS_RELEASE_LOOKUP: "true"
     commands:
       # --themesDir resolves the theme by directory name. The repository
       # is named hugo-liftoff while the theme is liftoff, so link it under
@@ -20,7 +22,7 @@ steps:
       - hugo --gc --minify --source exampleSite --themesDir /tmp/themes --theme liftoff
 
   - name: lint markdown
-    image: davidanson/markdownlint-cli2:v0.23.1
+    image: davidanson/markdownlint-cli2:v0.24.0
     commands:
       - markdownlint-cli2 "**/*.md" "#exampleSite/public" "#public"
     when:
@@ -58,8 +60,9 @@ steps:
       - event: push
 
   - name: build & deploy demo on production
-    image: hugomods/hugo:git-0.164.0
+    image: hugomods/hugo:git-0.165.0
     environment:
+      HUGO_PARAMS_RELEASE_LOOKUP: "true"
       DEPLOY_TOKEN:
         from_secret: deploy_token
     when:

@@ -125,6 +125,7 @@ starting with `http(s)://` or `mailto:` are left untouched.
 | `size`         | enum   | `sm`, `md` (default), `lg`.                              |
 | `icon`         | string | Iconify identifier.                                      |
 | `iconPosition` | enum   | `left` (default) or `right`.                             |
+| `version`      | string | Version badge: fixed string or `latest`, see [configuration](/docs/configuration/#release-version). |
 | _body_         | text   | Label.                                                   |
 
 ```markdown
@@ -137,6 +138,22 @@ starting with `http(s)://` or `mailto:` are left untouched.
 {{< buttons >}}
   {{< button href="/docs" variant="primary" size="lg" icon="mdi:rocket-launch" >}}Get started{{< /button >}}
   {{< button href="/docs" variant="ghost" size="lg" icon="mdi:arrow-right" iconPosition="right" >}}Read the docs{{< /button >}}
+{{< /buttons >}}
+
+Download buttons pair an OS icon with the current version:
+
+```markdown
+{{</* buttons */>}}
+  {{</* button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="primary" icon="simple-icons:apple" version="latest" */>}}Download for macOS{{</* /button */>}}
+  {{</* button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="simple-icons:linux" version="latest" */>}}Download for Linux{{</* /button */>}}
+  {{</* button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="mdi:microsoft-windows" version="latest" */>}}Download for Windows{{</* /button */>}}
+{{</* /buttons */>}}
+```
+
+{{< buttons >}}
+  {{< button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="primary" icon="simple-icons:apple" version="latest" >}}Download for macOS{{< /button >}}
+  {{< button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="simple-icons:linux" version="latest" >}}Download for Linux{{< /button >}}
+  {{< button href="https://codeberg.org/head1328/hugo-liftoff/tags" variant="secondary" icon="mdi:microsoft-windows" version="latest" >}}Download for Windows{{< /button >}}
 {{< /buttons >}}
 
 ---

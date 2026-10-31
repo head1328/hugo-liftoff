@@ -15,6 +15,9 @@ Parameters:
   size            sm, md (default), lg.
   icon            Iconify "set:name", optional.
   iconPosition    left (default) or right.
+  version         Version badge after the label: a fixed string such
+                  as "v1.2.0", or "latest" to resolve it at build time
+                  (see _partials/release-version.html).
 */ -}}
 {{- $href := .Get "href" | default "#" -}}
 {{- $target := .Get "target" -}}
@@ -22,6 +25,8 @@ Parameters:
 {{- $size := .Get "size" | default "md" -}}
 {{- $icon := .Get "icon" -}}
 {{- $iconPos := .Get "iconPosition" | default "left" -}}
+{{- $version := "" -}}
+{{- with .Get "version" }}{{ $version = partialCached "release-version.html" . . }}{{ end -}}
 {{- $external := or (strings.HasPrefix $href "http") (strings.HasPrefix $href "//") (strings.HasPrefix $href "mailto:") -}}
 {{- $finalHref := cond $external $href ($href | relLangURL) -}}
 {{- $cls := printf "btn btn--%s" $variant -}}
@@ -31,5 +36,6 @@ Parameters:
 >
   {{- if and $icon (eq $iconPos "left") -}}{{ partial "icon.html" $icon }}{{- end -}}
   <span>{{ trim .Inner " \n" | safeHTML }}</span>
+  {{- with $version }}<span class="btn__version">{{ . }}</span>{{ end -}}
   {{- if and $icon (eq $iconPos "right") -}}{{ partial "icon.html" $icon }}{{- end -}}
 </a>

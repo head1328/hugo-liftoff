@@ -1,0 +1,65 @@
+{{- /*
+Resolves a version label. Any value other than "latest" is returned
+unchanged. "latest" resolves in this order, first hit wins:
+
+  1. Newest release of site.Params.repo, via the host's REST API.
+  2. Newest tag of the same repo, for repos without releases.
+  3. site.Params.release.version.
+
+Steps 1 and 2 run at build time, only for host "codeberg" (default)
+or "github", and are skipped with params.release.lookup = false.
+Failed requests only warn, so the lookup never breaks the build. An
+empty result renders no badge.
+
+  {{ partialCached "release-version.html" "latest" "latest" }}
+*/ -}}
+{{- $version := . -}}
+{{- if eq $version "latest" -}}
+  {{- $version = "" -}}
+  {{- $cfg := site.Params.release | default dict -}}
+  {{- $repo := site.Params.repo -}}
+  {{- $apis := dict "codeberg" "https://codeberg.org/api/v1" "github" "https://api.github.com" -}}
+  {{- if and $repo (not (in (slice false "false") $cfg.lookup)) -}}
+    {{- $host := $repo.host | default "codeberg" -}}
+    {{- with index $apis $host -}}
+      {{- $base := printf "%s/repos/%s/%s" . $repo.owner $repo.name -}}
+      {{- $urls := slice
+        (printf "%s/releases/latest" $base)
+        (printf "%s/tags?%s=1" $base (cond (eq $host "github") "per_page" "limit"))
+      -}}
+      {{- range $url := $urls -}}
+        {{- /* The getresource cache may be configured to never expire,
+               so the key rotates daily to pick up new releases. */ -}}
+        {{- $opts := dict "key" (printf "%s@%s" $url (now.Format "2006-01-02")) "headers" (dict "Accept" "application/json") -}}
+        {{- $res := try (resources.GetRemote $url $opts) -}}
+        {{- with $res.Err -}}
+          {{- warnf "release-version.html: failed to fetch %s: %s" $url . -}}
+        {{- else -}}
+          {{- /* GetRemote returns nil on 404, e.g. a repo without releases. */ -}}
+          {{- with $res.Value -}}
+            {{- $data := try (transform.Unmarshal .) -}}
+            {{- with $data.Err -}}
+              {{- warnf "release-version.html: unexpected response from %s: %s" $url . -}}
+            {{- else -}}
+              {{- if reflect.IsSlice $data.Value -}}
+                {{- range first 1 $data.Value }}{{ $version = .name }}{{ end -}}
+              {{- else if reflect.IsMap $data.Value -}}
+                {{- $version = $data.Value.tag_name -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if $version }}{{ break }}{{ end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- if not $cfg.version -}}
+        {{- warnf "release-version.html: no lookup for host %q; set params.release.version" $host -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $version = $version | default $cfg.version -}}
+  {{- if not $version -}}
+    {{- warnf "release-version.html: no version found for \"latest\"; set params.release.version" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $version -}}
