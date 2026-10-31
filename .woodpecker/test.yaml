@@ -22,7 +22,7 @@ steps:
       - hugo --gc --minify --source exampleSite --themesDir /tmp/themes --theme liftoff
 
   - name: lint markdown
-    image: davidanson/markdownlint-cli2:v0.23.1
+    image: davidanson/markdownlint-cli2:v0.24.0
     commands:
       - markdownlint-cli2 "**/*.md" "#exampleSite/public" "#public"
     when:
