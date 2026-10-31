@@ -39,5 +39,6 @@ echo 'theme = "liftoff"' >> hugo.toml
 
 ## Minimum Hugo version
 
-Liftoff targets Hugo `0.146.0` and newer. The theme leans on the
-simplified layout lookup introduced in that release.
+Liftoff targets Hugo `0.156.0` and newer. The theme reads data files
+through `hugo.Data`, which replaced `site.Data` in that release, and
+leans on the simplified layout lookup from `0.146.0`.
