@@ -1,0 +1,18 @@
+{{- /*
+Nested inside {{< carousel >}}. Pushes onto the parent's scratch.
+
+Parameters:
+  src      Page bundle resource, falling back to a file under assets/.
+  alt      Alternative text.
+  caption  Optional caption below the image and in the lightbox.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- with or (.Page.Resources.Get $src) (resources.Get $src) -}}
+  {{- $.Parent.Scratch.Add "slides" (slice (dict
+    "res" .
+    "alt" ($.Get "alt")
+    "caption" ($.Get "caption")
+  )) -}}
+{{- else -}}
+  {{- warnf "%s: slide %q not found" $.Page.File.Path $src -}}
+{{- end -}}

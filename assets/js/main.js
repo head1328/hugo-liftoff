@@ -126,6 +126,67 @@
     box.showModal();
   });
 
+  /* Carousel: arrows, dots and optional autoplay on top of the
+     scroll-snap track. Each slide is as wide as the track. */
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+    const track = carousel.querySelector(".carousel__track");
+    const slides = Array.from(track.children);
+    const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+    if (slides.length < 2) return;
+    let current = 0;
+
+    const goTo = (index) => {
+      const next = (index + slides.length) % slides.length;
+      track.scrollTo({ left: next * track.clientWidth });
+    };
+
+    // Tracks swipes and native scrolling as well as goTo().
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        current = slides.indexOf(entry.target);
+        dots.forEach((dot, i) => dot.setAttribute("aria-current", i === current ? "true" : "false"));
+      });
+    }, { root: track, threshold: 0.6 });
+    slides.forEach((slide) => observer.observe(slide));
+
+    carousel.addEventListener("click", (event) => {
+      if (event.target.closest("[data-carousel-prev]")) goTo(current - 1);
+      else if (event.target.closest("[data-carousel-next]")) goTo(current + 1);
+      else {
+        const dot = event.target.closest("[data-carousel-dot]");
+        if (dot) goTo(Number(dot.dataset.carouselDot));
+      }
+    });
+
+    const interval = Number(carousel.dataset.interval) || 0;
+    if (interval > 0 && !reducedMotion.matches) {
+      // Paused while hovered, focused or in a hidden tab.
+      let timer;
+      let hovered = false;
+      let focused = false;
+      const sync = () => {
+        clearInterval(timer);
+        if (hovered || focused || document.hidden) return;
+        timer = setInterval(() => goTo(current + 1), interval);
+      };
+      carousel.addEventListener("mouseenter", () => { hovered = true; sync(); });
+      carousel.addEventListener("mouseleave", () => { hovered = false; sync(); });
+      carousel.addEventListener("focusin", () => { focused = true; sync(); });
+      carousel.addEventListener("focusout", (event) => {
+        focused = carousel.contains(event.relatedTarget);
+        sync();
+      });
+      document.addEventListener("visibilitychange", sync);
+      sync();
+    }
+
+    carousel.setAttribute("data-ready", "");
+  });
+
   /* Click delegation: theme toggle, mobile menu, code copy, blueprint filter. */
 
   document.addEventListener("click", (event) => {

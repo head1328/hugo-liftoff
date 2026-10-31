@@ -1,0 +1,98 @@
+{{- /*
+Image carousel. Images come from a glob or from nested slide
+shortcodes; nested slides take precedence.
+
+  {{< carousel images="gallery/*" >}}
+
+  {{< carousel aspectRatio="21-9" interval="5000" >}}
+    {{< slide src="img/one.png" alt="..." caption="..." >}}
+    {{< slide src="img/two.png" alt="..." >}}
+  {{< /carousel >}}
+
+Parameters:
+  images       Glob matched against page bundle resources, falling
+               back to files under assets/. Alt text and caption come
+               from the resource's front matter `title` and
+               `params.caption`.
+  aspectRatio  16-9 (default), 21-9, 4-3, 3-2, 1-1. A fixed set,
+               because an inline style would break a strict CSP.
+  interval     Autoplay delay in milliseconds. 0 (default) disables
+               autoplay; it also stays off with prefers-reduced-motion.
+
+The track is a CSS scroll-snap container, so swiping and scrolling
+work without JavaScript. main.js adds arrows, dots and autoplay.
+Images are cropped to fill the frame; a click opens the full image
+in the lightbox.
+*/ -}}
+{{- $ignore := .Inner -}}
+{{- $ratio := .Get "aspectRatio" | default "16-9" -}}
+{{- if not (in (slice "16-9" "21-9" "4-3" "3-2" "1-1") $ratio) -}}
+  {{- warnf "%s: carousel aspectRatio %q not supported, using 16-9" .Page.File.Path $ratio -}}
+  {{- $ratio = "16-9" -}}
+{{- end -}}
+{{- $interval := int (.Get "interval" | default 0) -}}
+{{- $slides := .Scratch.Get "slides" | default slice -}}
+{{- if not $slides -}}
+  {{- with .Get "images" -}}
+    {{- $matches := or ($.Page.Resources.Match .) (resources.Match .) -}}
+    {{- range $matches -}}
+      {{- if eq .ResourceType "image" -}}
+        {{- /* A resource title defaults to its name; only a title set
+               in front matter is usable as alt text. */ -}}
+        {{- $alt := cond (ne .Title .Name) .Title "" -}}
+        {{- $slides = $slides | append (slice (dict "res" . "alt" $alt "caption" (.Params.caption | default ""))) -}}
+      {{- end -}}
+    {{- else -}}
+      {{- warnf "%s: carousel images %q matched nothing" $.Page.File.Path . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- with $slides }}
+{{- $count := len . }}
+<section class="carousel carousel--{{ $ratio }}" data-carousel data-interval="{{ $interval }}" aria-roledescription="carousel" aria-label="{{ i18n "carousel" }}">
+  <div class="carousel__track" tabindex="0">
+    {{- range $i, $s := . }}
+      {{- $res := $s.res }}
+      {{- $src := $res.RelPermalink }}
+      {{- $srcset := slice }}
+      {{- $width := 0 }}
+      {{- $height := 0 }}
+      {{- /* SVG and GIF are passed through; Hugo cannot resize SVG and
+             resizing drops GIF animation. */ -}}
+      {{- if not (in (slice "svg" "gif") $res.MediaType.SubType) }}
+        {{- $width = $res.Width }}
+        {{- $height = $res.Height }}
+        {{- range slice 800 1200 1600 2400 }}
+          {{- if le . $res.Width }}
+            {{- $img := $res.Resize (printf "%dx webp" .) }}
+            {{- $srcset = $srcset | append (printf "%s %dw" $img.RelPermalink .) }}
+            {{- $src = $img.RelPermalink }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      <figure class="carousel__slide" aria-roledescription="slide" aria-label="{{ i18n "carousel_slide" (dict "Index" (add $i 1) "Count" $count) }}">
+        <a href="{{ $res.RelPermalink }}" data-lightbox data-close-label="{{ i18n "close" | default "Close" }}"{{ with $s.caption }} data-caption="{{ . }}"{{ end }}>
+          <img src="{{ $src }}"
+            {{- with $srcset }} srcset="{{ delimit . ", " }}" sizes="(min-width: 80rem) 72rem, 100vw"{{ end }}
+            {{- with $width }} width="{{ . }}" height="{{ $height }}"{{ end }}
+            alt="{{ $s.alt }}"{{ if $i }} loading="lazy"{{ end }} decoding="async">
+        </a>
+        {{- with $s.caption }}
+        <figcaption>{{ . }}</figcaption>
+        {{- end }}
+      </figure>
+    {{- end }}
+  </div>
+  {{- if gt $count 1 }}
+  <div class="carousel__controls">
+    <button class="carousel__arrow" type="button" data-carousel-prev aria-label="{{ i18n "carousel_prev" }}">{{ partial "icon.html" "mdi:chevron-left" }}</button>
+    <div class="carousel__dots">
+      {{- range $i, $_ := . }}
+      <button class="carousel__dot" type="button" data-carousel-dot="{{ $i }}" aria-label="{{ i18n "carousel_goto" (dict "Index" (add $i 1)) }}"{{ if not $i }} aria-current="true"{{ end }}></button>
+      {{- end }}
+    </div>
+    <button class="carousel__arrow" type="button" data-carousel-next aria-label="{{ i18n "carousel_next" }}">{{ partial "icon.html" "mdi:chevron-right" }}</button>
+  </div>
+  {{- end }}
+</section>
+{{- end }}

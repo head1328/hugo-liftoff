@@ -453,6 +453,62 @@ bevor alle Screenshots vorliegen.
 
 ---
 
+## carousel / slide {#carousel--slide}
+
+Mehrere Bilder in einem Rahmen. Wischen, Scrollen, die Pfeile oder die
+Punkte wechseln das Bild, ein Klick öffnet es in der Lightbox. Ohne
+JavaScript lässt sich der Streifen weiterhin scrollen, nur die
+Bedienelemente fehlen.
+
+| Param         | Typ    | Beschreibung                                                  |
+|---------------|--------|---------------------------------------------------------------|
+| `images`      | string | Glob wie `gallery/*`, siehe unten. Entfällt bei verschachtelten Slides. |
+| `aspectRatio` | enum   | `16-9` (default), `21-9`, `4-3`, `3-2`, `1-1`. Bilder werden passend beschnitten. |
+| `interval`    | int    | Autoplay-Takt in ms. `0` (default) schaltet Autoplay ab.      |
+
+`slide` nimmt `src`, `alt` und `caption` wie
+[screenshot](#screenshot). Damit stehen Alternativtext und
+Bildunterschrift direkt im Inhalt:
+
+```markdown
+{{</* carousel interval="5000" */>}}
+  {{</* slide src="img/carousel/landing.png" alt="Landingpage" caption="Landingpage mit Code im Hero." */>}}
+  {{</* slide src="img/carousel/docs.png" alt="Doku-Übersicht" caption="Doku-Übersicht mit Themenkarten." */>}}
+  {{</* slide src="img/carousel/articles.png" alt="Artikelliste" caption="Artikelliste." */>}}
+  {{</* slide src="img/carousel/blueprints.png" alt="Blueprints" caption="Blueprints mit Filtern." */>}}
+{{</* /carousel */>}}
+```
+
+{{< carousel interval="5000" >}}
+  {{< slide src="img/carousel/landing.png" alt="Landingpage" caption="Landingpage mit Code im Hero." >}}
+  {{< slide src="img/carousel/docs.png" alt="Doku-Übersicht" caption="Doku-Übersicht mit Themenkarten." >}}
+  {{< slide src="img/carousel/articles.png" alt="Artikelliste" caption="Artikelliste." >}}
+  {{< slide src="img/carousel/blueprints.png" alt="Blueprints" caption="Blueprints mit Filtern." >}}
+{{< /carousel >}}
+
+Für einen ganzen Ordner geht es mit `images` kürzer. Der Glob sucht
+zuerst im Page Bundle, dann unter `assets/`. Alternativtext und
+Bildunterschrift kommen aus dem Front Matter des Bundles:
+
+```markdown
+---
+resources:
+  - src: gallery/01.jpg
+    title: Alternativtext für das erste Bild
+    params:
+      caption: Bildunterschrift für das erste Bild
+---
+
+{{</* carousel images="gallery/*" aspectRatio="21-9" */>}}
+```
+
+Autoplay pausiert, solange Mauszeiger oder Fokus auf der Galerie
+liegen, und bleibt aus, wenn Besucher reduzierte Bewegung eingestellt
+haben. Hugo wandelt die Bilder beim Build in WebP um; SVG und GIF
+bleiben unverändert.
+
+---
+
 ## section {#section}
 
 Einfacher Container mit Standard-Inhaltsbreite. Praktisch, um auf
