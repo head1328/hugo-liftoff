@@ -14,7 +14,7 @@ them; it ships a generic set of building blocks for the genre.
 
 ## Requirements
 
-Hugo extended, 0.146.0 or newer.
+Hugo extended, 0.156.0 or newer.
 
 ## Use
 

@@ -26,6 +26,10 @@ enableEmoji = false
   lookup  = false
   version = "v0.1.3"
 
+[params.sponsor]
+  attention       = "heartbeat"
+  attentionRepeat = "10s"
+
 [params.footer]
   address = """
 ACME
@@ -160,4 +164,12 @@ Anytown, Germany
 [module]
   [module.hugoVersion]
     extended = true
-    min = "0.146.0"
+    min = "0.156.0"
+  # The theme's own FUNDING.yml drives the sponsor button. A custom
+  # mount replaces the default for its target, so data is re-added.
+  [[module.mounts]]
+    source = "../.forgejo/FUNDING.yml"
+    target = "data/funding.yml"
+  [[module.mounts]]
+    source = "data"
+    target = "data"

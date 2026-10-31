@@ -40,5 +40,6 @@ echo 'theme = "liftoff"' >> hugo.toml
 
 ## Mindestversion
 
-Liftoff zielt auf Hugo `0.146.0` oder neuer. Das Theme nutzt den
-vereinfachten Layout-Lookup aus dieser Version.
+Liftoff zielt auf Hugo `0.156.0` oder neuer. Das Theme liest
+Data-Files über `hugo.Data`, das in dieser Version `site.Data`
+abgelöst hat, und nutzt den vereinfachten Layout-Lookup aus `0.146.0`.

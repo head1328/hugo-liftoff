@@ -266,7 +266,7 @@ Yes. The theme is MIT licensed.
 {{</* /accordion-item */>}}
 
 {{</* accordion-item title="Which Hugo version do I need?" */>}}
-Hugo extended 0.146 or newer:
+Hugo extended 0.156 or newer:
 
 ```zsh
 hugo version
@@ -283,7 +283,7 @@ Yes. The theme is MIT licensed.
 {{< /accordion-item >}}
 
 {{< accordion-item title="Which Hugo version do I need?" >}}
-Hugo extended 0.146 or newer:
+Hugo extended 0.156 or newer:
 
 ```zsh
 hugo version
@@ -501,6 +501,25 @@ resources:
 Autoplay pauses while the pointer or focus is on the carousel and
 stays off for visitors who prefer reduced motion. Images are resized
 to WebP at build time; SVG and GIF are used as is.
+
+---
+
+## `funding` {#funding}
+
+Donation links from the [funding configuration](/docs/configuration/#funding)
+as a grid of cards, e.g. for a support page. The same links appear in
+the header popover. No parameters.
+the header popover. No parameters.
+
+The sponsor button in the header, the optional banner and the
+heartbeat animation of the button are set up in the
+[funding configuration](/docs/configuration/#funding), not here.
+
+```markdown
+{{</* funding */>}}
+```
+
+{{< funding >}}
 
 ---
 

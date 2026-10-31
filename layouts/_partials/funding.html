@@ -1,0 +1,42 @@
+{{- /*
+Sponsor popover and the optional dismissible banner. Rendered once
+per page from baseof.html when funding links exist.
+
+  [params.sponsor]
+    header          = true    # sponsor button in the header
+    banner          = false   # dismissible banner above the header
+    message         = "..."   # replaces the default i18n text
+    attention       = "none"  # heartbeat or pulse, animates the header button
+    attentionRepeat = "once"  # or a duration such as "120s"
+
+The popover uses the native Popover API, so the header button works
+without JavaScript. main.js remembers a dismissed banner and runs the
+attention animation.
+*/ -}}
+{{- $links := partialCached "funding-links.html" . site.Language.Lang -}}
+{{- $cfg := site.Params.sponsor | default dict -}}
+{{- $message := $cfg.message | default (i18n "sponsor_text" (dict "Title" site.Title)) -}}
+{{- with $links }}
+  {{- if in (slice true "true") $cfg.banner }}
+  <div class="funding-banner" data-funding-banner hidden>
+    <div class="container funding-banner__inner">
+      {{ partial "icon.html" "mdi:heart-outline" }}
+      <p class="funding-banner__text">{{ $message }}</p>
+      <button class="btn btn--primary btn--sm" type="button" popovertarget="liftoff-sponsor">{{ i18n "sponsor" }}</button>
+      <button class="funding-banner__close" type="button" data-action="dismiss-funding" aria-label="{{ i18n "dismiss" }}">
+        {{- partial "icon.html" "mdi:close" -}}
+      </button>
+    </div>
+  </div>
+  {{- end }}
+  <div class="funding" id="liftoff-sponsor" popover aria-labelledby="liftoff-sponsor-title">
+    <div class="funding__head">
+      <h2 class="funding__title" id="liftoff-sponsor-title">{{ i18n "sponsor_title" (dict "Title" site.Title) }}</h2>
+      <button class="funding__close" type="button" popovertarget="liftoff-sponsor" popovertargetaction="hide" aria-label="{{ i18n "close" }}">
+        {{- partial "icon.html" "mdi:close" -}}
+      </button>
+    </div>
+    <p class="funding__text">{{ $message }}</p>
+    {{ partial "funding-list.html" (dict "links" .) }}
+  </div>
+{{- end }}

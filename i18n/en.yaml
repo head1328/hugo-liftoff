@@ -35,3 +35,7 @@ carousel_slide: "{{ .Index }} of {{ .Count }}"
 carousel_prev: Previous image
 carousel_next: Next image
 carousel_goto: "Show image {{ .Index }}"
+sponsor: Sponsor
+sponsor_title: "Support {{ .Title }}"
+sponsor_text: "{{ .Title }} is free and open source. Support keeps development going."
+dismiss: Dismiss

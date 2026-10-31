@@ -149,6 +149,65 @@ What to know about the lookup:
     HUGO_PARAMS_RELEASE_LOOKUP: "true"
   ```
 
+### Funding {#funding}
+
+Lists donation options in three places: a sponsor button in the
+header, an optional banner above the header, and the
+[`funding` shortcode](/docs/shortcodes/#funding). The keys are the
+same as in a `FUNDING.yml` for GitHub or Forgejo:
+
+```toml
+[params.funding]
+  github    = ["max-mustermann", "acme"]
+  liberapay = "max-mustermann"
+  ko_fi     = "max-mustermann"
+  custom    = ["https://example.com/donate"]
+```
+
+Supported keys: `github`, `liberapay`, `open_collective`, `ko_fi`,
+`patreon`, `buy_me_a_coffee`, `polar`, `thanks_dev`, `tidelift`,
+`issuehunt`, `community_bridge`, `lfx_crowdfunding` and `custom`.
+Unknown keys log a warning.
+
+If the site lives in the same repository as a `FUNDING.yml`, mount the
+file as `data/funding.yml` instead of maintaining the links twice. It
+takes precedence over `params.funding`:
+
+```toml
+[[module.mounts]]
+  source = ".forgejo/FUNDING.yml"   # or .github/FUNDING.yml
+  target = "data/funding.yml"
+[[module.mounts]]
+  source = "data"                   # custom mounts replace the default
+  target = "data"
+```
+
+How the links are shown:
+
+```toml
+[params.sponsor]
+  header          = true    # sponsor button in the header
+  banner          = false   # dismissible banner above the header
+  message         = ""      # replaces the default text in popover and banner
+  attention       = "none"  # heartbeat or pulse, see below
+  attentionRepeat = "once"  # or a duration such as "120s", see below
+```
+
+The header button opens a popover with all links. It works without
+JavaScript. The banner stays hidden for visitors who dismissed it
+once; without JavaScript it does not show at all. Without any funding
+links, nothing is rendered.
+
+`attention` draws the eye to the header button when a visitor arrives:
+`heartbeat` lets the heart beat with a ring around the button, `pulse`
+shows the ring only. Each run starts one second after the page loads and
+lasts three beats. With `attentionRepeat = "once"` it runs once per
+browser tab. A duration such as `"120s"`, `"2m"` or a plain number of
+seconds repeats it at that interval, also across page loads. A run takes
+about four seconds, so shorter intervals cut it off. Once the visitor
+opened the popover, it stops for that tab. Visitors who prefer reduced
+motion never see it.
+
 ### Social links
 
 Rendered in the footer. `icon` is an Iconify identifier. Internal paths

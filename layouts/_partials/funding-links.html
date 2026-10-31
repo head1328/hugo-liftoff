@@ -1,0 +1,59 @@
+{{- /*
+Returns the funding links as a list of dicts with label, handle, icon
+and url. Reads data/funding.yml, which can be a module mount of the
+repository's FUNDING.yml, and falls back to site.Params.funding. Both
+use the FUNDING.yml keys of GitHub and Forgejo.
+
+  {{ range partialCached "funding-links.html" . site.Language.Lang }}...{{ end }}
+
+Platforms without a simple-icons logo use a generic heart.
+*/ -}}
+{{- $cfg := hugo.Data.funding | default site.Params.funding -}}
+{{- $heart := "mdi:hand-heart-outline" -}}
+{{- $platforms := dict
+  "github"           (dict "label" "GitHub Sponsors" "icon" "simple-icons:githubsponsors" "url" "https://github.com/sponsors/%s")
+  "liberapay"        (dict "label" "Liberapay" "icon" "simple-icons:liberapay" "url" "https://liberapay.com/%s")
+  "open_collective"  (dict "label" "Open Collective" "icon" "simple-icons:opencollective" "url" "https://opencollective.com/%s")
+  "ko_fi"            (dict "label" "Ko-fi" "icon" "simple-icons:kofi" "url" "https://ko-fi.com/%s")
+  "patreon"          (dict "label" "Patreon" "icon" "simple-icons:patreon" "url" "https://www.patreon.com/%s")
+  "buy_me_a_coffee"  (dict "label" "Buy Me a Coffee" "icon" "simple-icons:buymeacoffee" "url" "https://www.buymeacoffee.com/%s")
+  "polar"            (dict "label" "Polar" "icon" $heart "url" "https://polar.sh/%s")
+  "thanks_dev"       (dict "label" "thanks.dev" "icon" $heart "url" "https://thanks.dev/%s")
+  "tidelift"         (dict "label" "Tidelift" "icon" $heart "url" "https://tidelift.com/funding/github/%s")
+  "issuehunt"        (dict "label" "IssueHunt" "icon" $heart "url" "https://issuehunt.io/r/%s")
+  "community_bridge" (dict "label" "LFX Mentorship" "icon" "simple-icons:linuxfoundation" "url" "https://funding.communitybridge.org/projects/%s")
+  "lfx_crowdfunding" (dict "label" "LFX Crowdfunding" "icon" "simple-icons:linuxfoundation" "url" "https://crowdfunding.lfx.linuxfoundation.org/projects/%s")
+-}}
+{{- $order := slice "github" "liberapay" "open_collective" "ko_fi" "patreon" "buy_me_a_coffee" "polar" "thanks_dev" "tidelift" "issuehunt" "community_bridge" "lfx_crowdfunding" "custom" -}}
+{{- $links := slice -}}
+{{- with $cfg -}}
+  {{- range $key, $_ := . -}}
+    {{- if not (in $order $key) -}}
+      {{- warnf "funding-links.html: unknown funding platform %q" $key -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $key := $order -}}
+    {{- $values := index $cfg $key -}}
+    {{- if and $values (not (reflect.IsSlice $values)) }}{{ $values = slice $values }}{{ end -}}
+    {{- range $values -}}
+      {{- if not . }}{{ continue }}{{ end -}}
+      {{- if eq $key "custom" -}}
+        {{- $links = $links | append (slice (dict
+          "label" ((urls.Parse .).Host | strings.TrimPrefix "www.")
+          "handle" ""
+          "icon" "mdi:link-variant"
+          "url" .
+        )) -}}
+      {{- else -}}
+        {{- $p := index $platforms $key -}}
+        {{- $links = $links | append (slice (dict
+          "label" $p.label
+          "handle" .
+          "icon" $p.icon
+          "url" (printf $p.url .)
+        )) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $links -}}

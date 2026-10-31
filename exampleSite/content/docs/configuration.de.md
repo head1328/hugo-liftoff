@@ -151,6 +151,66 @@ Zur Abfrage:
     HUGO_PARAMS_RELEASE_LOOKUP: "true"
   ```
 
+### Funding {#funding}
+
+Zeigt Spendenmöglichkeiten an drei Stellen: als Sponsor-Button im
+Header, optional als Banner über dem Header und über den
+[`funding`-Shortcode](/docs/shortcodes/#funding). Die Schlüssel sind
+dieselben wie in einer `FUNDING.yml` für GitHub oder Forgejo:
+
+```toml
+[params.funding]
+  github    = ["max-mustermann", "acme"]
+  liberapay = "max-mustermann"
+  ko_fi     = "max-mustermann"
+  custom    = ["https://example.com/donate"]
+```
+
+Unterstützt werden `github`, `liberapay`, `open_collective`, `ko_fi`,
+`patreon`, `buy_me_a_coffee`, `polar`, `thanks_dev`, `tidelift`,
+`issuehunt`, `community_bridge`, `lfx_crowdfunding` und `custom`.
+Unbekannte Schlüssel erzeugen eine Warnung.
+
+Liegt die Site im selben Repo wie eine `FUNDING.yml`, lässt sich die
+Datei als `data/funding.yml` einbinden, statt die Links doppelt zu
+pflegen. Sie hat dann Vorrang vor `params.funding`:
+
+```toml
+[[module.mounts]]
+  source = ".forgejo/FUNDING.yml"   # oder .github/FUNDING.yml
+  target = "data/funding.yml"
+[[module.mounts]]
+  source = "data"                   # eigene Mounts ersetzen den Default
+  target = "data"
+```
+
+Wo die Links erscheinen:
+
+```toml
+[params.sponsor]
+  header          = true    # Sponsor-Button im Header
+  banner          = false   # wegklickbares Banner über dem Header
+  message         = ""      # ersetzt den Standardtext in Popover und Banner
+  attention       = "none"  # heartbeat oder pulse, siehe unten
+  attentionRepeat = "once"  # oder eine Dauer wie "120s", siehe unten
+```
+
+Der Button im Header öffnet ein Popover mit allen Links und
+funktioniert auch ohne JavaScript. Das Banner bleibt ausgeblendet,
+sobald jemand es einmal weggeklickt hat; ohne JavaScript erscheint es
+gar nicht. Ohne Funding-Links rendert das Theme nichts davon.
+
+`attention` lenkt beim Betreten der Site den Blick auf den Button im
+Header: Bei `heartbeat` schlägt das Herz und ein Ring läuft um den
+Button, bei `pulse` erscheint nur der Ring. Jeder Durchlauf startet eine
+Sekunde nach dem Laden und dauert drei Takte. Mit `attentionRepeat =
+"once"` läuft die Animation einmal pro Browser-Tab. Eine Dauer wie
+`"120s"`, `"2m"` oder eine Zahl in Sekunden wiederholt sie in diesem
+Abstand, auch über Seitenwechsel hinweg. Ein Durchlauf dauert gut vier
+Sekunden, kürzere Abstände schneiden ihn ab. Hat jemand das Popover
+geöffnet, ist im selben Tab Schluss. Wer reduzierte Bewegung eingestellt
+hat, sieht die Animation nie.
+
 ### Social-Links
 
 Erscheinen im Footer. `icon` ist ein Iconify-Bezeichner. Interne Pfade

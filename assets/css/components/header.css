@@ -74,6 +74,7 @@
   color: var(--color-text-muted);
   font-size: var(--text-sm);
   font-weight: 500;
+  white-space: nowrap;
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
@@ -147,6 +148,7 @@
   border-radius: var(--radius-pill);
   text-decoration: none;
   line-height: 1;
+  white-space: nowrap;
   transition: border-color var(--transition-base), color var(--transition-base);
 }
 
@@ -267,11 +269,11 @@
   margin-left: auto;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1180px) {
   .repo-stats__name { display: none; }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 960px) {
   .site-header__nav,
   .site-header__actions {
     display: none;
@@ -332,4 +334,3 @@
     }
   }
 }
-

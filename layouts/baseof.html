@@ -10,6 +10,7 @@ Body class is composed from section so site-level CSS can target sections.
 </head>
 <body class="page page--{{ if .IsHome }}home{{ else }}{{ with .Section }}{{ . }}{{ else }}other{{ end }}{{ end }}">
   <a class="skip-link" href="#main-content">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
+  {{- partial "funding.html" . }}
   <header class="site-header" data-menu-open="false">
     <div class="container site-header__inner">
       {{ partial "header.html" . }}

@@ -268,7 +268,7 @@ Ja, das Theme steht unter MIT-Lizenz.
 {{</* /accordion-item */>}}
 
 {{</* accordion-item title="Welche Hugo-Version brauche ich?" */>}}
-Hugo extended ab 0.146:
+Hugo extended ab 0.156:
 
 ```zsh
 hugo version
@@ -285,7 +285,7 @@ Ja, das Theme steht unter MIT-Lizenz.
 {{< /accordion-item >}}
 
 {{< accordion-item title="Welche Hugo-Version brauche ich?" >}}
-Hugo extended ab 0.146:
+Hugo extended ab 0.156:
 
 ```zsh
 hugo version
@@ -506,6 +506,26 @@ Autoplay pausiert, solange Mauszeiger oder Fokus auf der Galerie
 liegen, und bleibt aus, wenn Besucher reduzierte Bewegung eingestellt
 haben. Hugo wandelt die Bilder beim Build in WebP um; SVG und GIF
 bleiben unverändert.
+
+---
+
+## `funding` {#funding}
+
+Spendenlinks aus der [Funding-Konfiguration](/docs/configuration/#funding)
+als Kartenraster, etwa für eine Support-Seite. Dieselben Links zeigt
+das Popover im Header. Keine Parameter.
+das Popover im Header. Keine Parameter.
+
+Sponsor-Button im Header, optionales Banner und die Herzschlag-Animation
+des Buttons werden in der
+[Funding-Konfiguration](/docs/configuration/#funding) eingestellt,
+nicht hier.
+
+```markdown
+{{</* funding */>}}
+```
+
+{{< funding >}}
 
 ---
 
