@@ -3,7 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "HUGO_VERSION": "0.164.0"
+      "HUGO_VERSION": "0.165.0"
     }
   },
   "remoteUser": "vscode",

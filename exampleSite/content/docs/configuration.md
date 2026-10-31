@@ -102,6 +102,42 @@ supported as hosts. The count is fetched in the browser and cached in
   name  = "liftoff"
 ```
 
+### Release version {#release-version}
+
+Buttons and hero actions can show a version badge next to their label,
+e.g. `Download | v1.2.0`. A fixed value such as `version="v1.2.0"` is
+printed as is. `version="latest"` is resolved at build time, first hit
+wins:
+
+1. **Newest release** of `params.repo`, read from the host's REST API.
+2. **Newest tag** of the same repo, for repos that publish tags but no
+   releases.
+3. **`params.release.version`**, a value you maintain by hand.
+
+If none of these yields a value, the build logs a warning and the
+button renders without a badge.
+
+```toml
+[params.release]
+  lookup  = true      # false skips steps 1 and 2
+  version = "v1.2.0"  # fallback, or the only source with lookup = false
+```
+
+What to know about the lookup:
+
+- Only `codeberg` and `github` are supported as hosts, the same as for
+  the star count. Other hosts skip straight to step 3.
+- The API is called during `hugo` and `hugo server`, not in the
+  browser. Visitors never contact the host, and a Content Security
+  Policy does not get in the way.
+- The answer is cached for one day. A new release shows up with the
+  first build on the following day at the latest.
+- Network errors, rate limits or unexpected responses only log a
+  warning. The build continues with the next step.
+- Turn it off with `lookup = false` if your build runs offline, behind
+  a proxy, or if the API gives you trouble. The badge then comes from
+  `params.release.version` only.
+
 ### Social links
 
 Rendered in the footer. `icon` is an Iconify identifier. Internal paths

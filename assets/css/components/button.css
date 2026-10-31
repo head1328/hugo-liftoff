@@ -74,6 +74,16 @@
   font-size: 1.1em;
 }
 
+/* Version badge, e.g. "Download | v1.2.0". Derives its divider from
+   currentColor so it works on every variant. */
+.btn__version {
+  padding-inline-start: var(--space-2);
+  border-inline-start: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
 .buttons {
   display: flex;
   flex-wrap: wrap;
