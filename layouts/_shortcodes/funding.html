@@ -1,0 +1,11 @@
+{{- /*
+Funding links as a grid of cards, from the same source as the sponsor
+button: data/funding.yml or site.Params.funding.
+
+  {{< funding >}}
+*/ -}}
+{{- with partialCached "funding-links.html" . site.Language.Lang }}
+  {{- partial "funding-list.html" (dict "links" . "class" "funding-list--grid") }}
+{{- else }}
+  {{- warnf "%s: funding shortcode used, but no funding links are configured" $.Page.File.Path }}
+{{- end }}

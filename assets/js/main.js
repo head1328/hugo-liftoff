@@ -187,7 +187,47 @@
     carousel.setAttribute("data-ready", "");
   });
 
-  /* Click delegation: theme toggle, mobile menu, code copy, blueprint filter. */
+  /* Funding banner: rendered hidden, shown until dismissed once. */
+
+  const fundingKey = "liftoff.funding.dismissed";
+  const fundingBanner = document.querySelector("[data-funding-banner]");
+  if (fundingBanner && !localStorage.getItem(fundingKey)) fundingBanner.hidden = false;
+
+  /* Sponsor button: optional attention animation. Runs once per tab,
+     or again every data-attention-repeat seconds across page loads.
+     Stops for the tab once the visitor opened the popover. */
+
+  const attentionKey = "liftoff.sponsor.attention";
+  const engagedKey = "liftoff.sponsor.engaged";
+  const sponsorButton = document.querySelector(".sponsor-button[data-attention]");
+  if (sponsorButton && !reducedMotion.matches) {
+    const repeatMs = Number(sponsorButton.dataset.attentionRepeat || 0) * 1000;
+    let timer;
+    const play = () => {
+      sessionStorage.setItem(attentionKey, String(Date.now()));
+      // Re-adding the class only restarts the CSS animation after a reflow.
+      sponsorButton.classList.remove("is-attention");
+      void sponsorButton.offsetWidth;
+      sponsorButton.classList.add("is-attention");
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      if (document.hidden || sessionStorage.getItem(engagedKey)) return;
+      const last = Number(sessionStorage.getItem(attentionKey)) || 0;
+      if (last && !repeatMs) return;
+      const wait = last ? Math.max(0, last + repeatMs - Date.now()) : 0;
+      timer = setTimeout(() => { play(); schedule(); }, wait);
+    };
+    sponsorButton.addEventListener("click", () => {
+      sessionStorage.setItem(engagedKey, "1");
+      clearTimeout(timer);
+    });
+    document.addEventListener("visibilitychange", schedule);
+    schedule();
+  }
+
+  /* Click delegation: theme toggle, mobile menu, code copy, funding
+     banner, blueprint filter. */
 
   document.addEventListener("click", (event) => {
     const themeToggle = event.target.closest('[data-action="toggle-theme"]');
@@ -222,6 +262,13 @@
           copyBtn.textContent = original;
         }, 1500);
       });
+      return;
+    }
+
+    const dismissFunding = event.target.closest('[data-action="dismiss-funding"]');
+    if (dismissFunding) {
+      localStorage.setItem(fundingKey, "1");
+      dismissFunding.closest("[data-funding-banner]").hidden = true;
       return;
     }
 

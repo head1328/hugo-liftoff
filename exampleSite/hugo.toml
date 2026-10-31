@@ -26,10 +26,9 @@ enableEmoji = false
   lookup  = false
   version = "v0.1.3"
 
-# Placeholder links only: a handle such as "acme" could belong to a
-# real account on the funding platforms.
-[params.funding]
-  custom = ["https://example.com/donate", "https://example.org/sponsor"]
+[params.sponsor]
+  attention       = "heartbeat"
+  attentionRepeat = "10s"
 
 [params.footer]
   address = """
@@ -166,3 +165,11 @@ Anytown, Germany
   [module.hugoVersion]
     extended = true
     min = "0.156.0"
+  # The theme's own FUNDING.yml drives the sponsor button. A custom
+  # mount replaces the default for its target, so data is re-added.
+  [[module.mounts]]
+    source = "../.forgejo/FUNDING.yml"
+    target = "data/funding.yml"
+  [[module.mounts]]
+    source = "data"
+    target = "data"

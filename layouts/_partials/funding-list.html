@@ -1,0 +1,19 @@
+{{- /*
+Renders funding links from funding-links.html. Shared by the sponsor
+popover and the funding shortcode.
+
+  {{ partial "funding-list.html" (dict "links" $links "class" "funding-list--grid") }}
+*/ -}}
+<ul class="funding-list{{ with .class }} {{ . }}{{ end }}">
+  {{- range .links }}
+  <li>
+    <a class="funding-link" href="{{ .url }}" rel="noopener">
+      {{ partial "icon.html" .icon }}
+      <span class="funding-link__label">{{ .label }}</span>
+      {{- with .handle }}
+      <span class="funding-link__handle">{{ . }}</span>
+      {{- end }}
+    </a>
+  </li>
+  {{- end }}
+</ul>

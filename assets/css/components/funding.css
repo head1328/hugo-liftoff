@@ -1,0 +1,207 @@
+/*
+ * Funding: header sponsor button, sponsor popover, dismissible banner
+ * and the link list shared by the popover and the funding shortcode.
+ */
+
+/* Header button, styled like the repo stats badge. Icon only: a
+   translated label does not fit next to the menu. */
+.sponsor-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  line-height: 1;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.sponsor-button svg {
+  color: var(--color-accent);
+  font-size: 1.1em;
+}
+
+.sponsor-button:hover {
+  border-color: var(--color-border-strong);
+}
+
+/* Attention animation: three beats once per tab session, starting
+   after the page has settled. main.js adds .is-attention, so it never
+   runs without JS or with reduced motion. */
+.sponsor-button {
+  position: relative;
+}
+
+.sponsor-button.is-attention[data-attention="heartbeat"] svg {
+  animation: sponsor-heartbeat 1.1s ease-in-out 1s 3;
+}
+
+.sponsor-button.is-attention::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 2px solid var(--color-accent);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  animation: sponsor-ring 1.1s ease-out 1s 3;
+}
+
+@keyframes sponsor-heartbeat {
+  0%, 40%, 100% { transform: scale(1); }
+  10% { transform: scale(1.35); }
+  20% { transform: scale(1); }
+  30% { transform: scale(1.25); }
+}
+
+@keyframes sponsor-ring {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5, 1.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-button.is-attention svg,
+  .sponsor-button.is-attention::after {
+    animation: none;
+  }
+}
+
+/* Popover. The UA style centers it in the viewport. */
+.funding[popover] {
+  width: min(28rem, calc(100vw - 2 * var(--space-4)));
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text);
+}
+
+.funding[popover]::backdrop {
+  background-color: rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.funding__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.funding__title {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.funding__close,
+.funding-banner__close {
+  appearance: none;
+  display: inline-flex;
+  padding: var(--space-1);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.funding__close:hover,
+.funding-banner__close:hover {
+  color: var(--color-text);
+  background-color: var(--color-bg-surface-2);
+}
+
+.funding__text {
+  margin: var(--space-2) 0 var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Link list */
+.funding-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Prose list spacing would offset the cards. */
+.funding-list > li {
+  margin: 0;
+}
+
+.funding-list--grid {
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  margin-block: var(--space-5);
+}
+
+.funding-link {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-surface-2);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color var(--transition-base);
+}
+
+.funding-link:hover {
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+.funding-link svg {
+  grid-row: span 2;
+  font-size: 1.5rem;
+  color: var(--color-accent);
+}
+
+.funding-link__label {
+  font-weight: 600;
+}
+
+.funding-link__handle {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Banner above the header. Starts hidden; main.js reveals it unless
+   the visitor dismissed it before. */
+.funding-banner {
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-surface);
+}
+
+.funding-banner[hidden] {
+  display: none;
+}
+
+.funding-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.funding-banner__inner > svg {
+  flex: none;
+  color: var(--color-accent);
+}
+
+.funding-banner__text {
+  flex: 1;
+  margin: 0;
+  color: var(--color-text-muted);
+}
