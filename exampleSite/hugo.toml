@@ -24,7 +24,7 @@ enableEmoji = false
 # getresource cache below. CI enables it via HUGO_PARAMS_RELEASE_LOOKUP.
 [params.release]
   lookup  = false
-  version = "v0.1.3"
+  version = "v0.2.0"
 
 [params.sponsor]
   attention       = "heartbeat"

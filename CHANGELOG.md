@@ -5,6 +5,33 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-10-31
+
+### Added
+
+- `version` parameter on `button` for a version badge after the label.
+  A fixed value is printed as is, `version="latest"` is resolved at
+  build time from the newest release or tag of `params.repo`, falling
+  back to `params.release.version`. `params.release.lookup = false`
+  skips the API call, see
+  [Release version](https://hugo-liftoff.kevinhorst.de/en/docs/configuration/#release-version).
+- `carousel` and `slide` shortcodes. The track is a CSS scroll-snap
+  container that works without JavaScript, `main.js` adds arrows, dots
+  and optional autoplay. A click opens the image in the lightbox.
+- Funding support: a sponsor button in the header with a popover, an
+  optional dismissible banner and the `funding` shortcode. Links come
+  from `params.funding` or a mounted `FUNDING.yml`. `params.sponsor`
+  controls placement, text and an optional `heartbeat` or `pulse`
+  animation, see
+  [Funding](https://hugo-liftoff.kevinhorst.de/en/docs/configuration/#funding).
+
+### Changed
+
+- **The theme requires Hugo 0.156 or later.** It reads data files via
+  `hugo.Data`, because `site.Data` is deprecated since 0.156.
+- Shortcode headings in the docs are formatted as code, so the table
+  of contents shows them consistently.
+
 ## [0.1.3] - 2026-10-25
 
 ### Added
@@ -81,6 +108,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   English i18n, build-time Iconify icons, and a bilingual demo site
   under `exampleSite/`.
 
+[0.2.0]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.1.3...v0.2.0
 [0.1.3]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.1.2...v0.1.3
 [0.1.2]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.1.1...v0.1.2
 [0.1.1]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.1.0...v0.1.1
