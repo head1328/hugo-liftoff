@@ -54,7 +54,7 @@ Ohne Sprachangabe fällt der Block auf `text` zurück. Für die Varianten
 `wide` und `featured` nimmst du stattdessen den
 [`code`](#code)-Shortcode.
 
-## hero {#hero}
+## `hero` {#hero}
 
 Hero in Sektionsbreite mit optionalem Akzent in der Headline. Beliebige
 weitere Blöcke (Code, Buttons, Pills) kommen in den Body und landen in
@@ -87,7 +87,7 @@ der Hero-Spalte.
 
 ---
 
-## pills / pill {#pills--pill}
+## `pills` / `pill` {#pills--pill}
 
 Kompakte Reihe mit Highlight-Tags für Hero- oder Section-Intros. Jeder
 `pill` nimmt optional ein Iconify-Icon.
@@ -113,7 +113,7 @@ Kompakte Reihe mit Highlight-Tags für Hero- oder Section-Intros. Jeder
 
 ---
 
-## buttons / button {#buttons--button}
+## `buttons` / `button` {#buttons--button}
 
 `buttons` legt eine umbrechende Reihe; `button` rendert einen einzelnen
 Link im Button-Stil. Interne `href`s laufen durch `relLangURL`; URLs
@@ -160,7 +160,7 @@ Download-Buttons kombinieren Betriebssystem-Icon und aktuelle Version:
 
 ---
 
-## code {#code}
+## `code` {#code}
 
 Eigenständiger Code-Block mit derselben Optik wie der Markdown-Render-
 Hook: Sprach-Label, Copy-Button und optional ein animierter Verlaufs-
@@ -191,7 +191,7 @@ hugo server
 
 ---
 
-## tabs / tab {#tabs--tab}
+## `tabs` / `tab` {#tabs--tab}
 
 Tab-Panels. `tabs` umschließt einen oder mehrere `tab`-Shortcodes. Der
 erste Tab ist per Default aktiv. Inhalte werden als Markdown gerendert,
@@ -245,7 +245,7 @@ Code-Fences und verschachtelte Shortcodes funktionieren also.
 
 ---
 
-## accordion / accordion-item {#accordion--accordion-item}
+## `accordion` / `accordion-item` {#accordion--accordion-item}
 
 Aufklappbare Einträge für FAQs und Nachschlagelisten. `accordion`
 umschließt einen oder mehrere `accordion-item`-Shortcodes. Jeder
@@ -296,7 +296,7 @@ hugo version
 
 ---
 
-## steps / step {#steps--step}
+## `steps` / `step` {#steps--step}
 
 Vertikaler, nummerierter Onboarding-Flow. `steps` ist der Container;
 jeder `step` ist eine eigenständige Karte mit Step-N-Titel-Header
@@ -429,7 +429,7 @@ dürfen sich pro Tab unterscheiden.
 
 ---
 
-## screenshot {#screenshot}
+## `screenshot` {#screenshot}
 
 Bild mit optionaler Bildunterschrift. Ein Klick zeigt es in voller
 Größe in einer Lightbox; Esc, der Schließen-Button oder ein Klick
@@ -453,7 +453,7 @@ bevor alle Screenshots vorliegen.
 
 ---
 
-## carousel / slide {#carousel--slide}
+## `carousel` / `slide` {#carousel--slide}
 
 Mehrere Bilder in einem Rahmen. Wischen, Scrollen, die Pfeile oder die
 Punkte wechseln das Bild, ein Klick öffnet es in der Lightbox. Ohne
@@ -509,7 +509,7 @@ bleiben unverändert.
 
 ---
 
-## section {#section}
+## `section` {#section}
 
 Einfacher Container mit Standard-Inhaltsbreite. Praktisch, um auf
 shortcode-getriebenen Seiten Sektionen zu gruppieren und Prosa zentriert
@@ -532,7 +532,7 @@ zu halten.
 
 ---
 
-## feature-grid / feature-card {#feature-grid--feature-card}
+## `feature-grid` / `feature-card` {#feature-grid--feature-card}
 
 Responsives Grid aus Feature-Cards. `feature-grid` umschließt beliebig
 viele verschachtelte `feature-card`-Shortcodes.
@@ -572,7 +572,7 @@ viele verschachtelte `feature-card`-Shortcodes.
 
 ---
 
-## icon-grid {#icon-grid}
+## `icon-grid` {#icon-grid}
 
 Kachel-Grid aus einer Daten-Datei. Praktisch für Integrations-Logos und
 Deployment-Ziele. Einträge mit Iconify-`icon` rendern als Inline-SVG;
@@ -600,7 +600,7 @@ ohne `icon` bleibt die Kachel leer.
 
 ---
 
-## pricing {#pricing}
+## `pricing` {#pricing}
 
 Vergleich gestaffelter Angebote aus einer Daten-Datei. Rendert eine
 Karte pro Eintrag; der Eintrag mit `featured: true` bekommt Akzent-
@@ -635,7 +635,7 @@ Rahmen und Banner.
 
 ---
 
-## testimonial {#testimonial}
+## `testimonial` {#testimonial}
 
 Zitat-Block mit optionalem Autor, Rolle und Metriken. Die Metriken
 werden aus einer `metrics:`-Liste am Ende des Bodys geparst.
@@ -670,7 +670,7 @@ metrics:
 
 ---
 
-## cta {#cta}
+## `cta` {#cta}
 
 Auffälliger Call-to-Action-Block mit optionalem Titel, optionalem
 Untertitel (dem Shortcode-Body) und bis zu zwei Aktions-Buttons.

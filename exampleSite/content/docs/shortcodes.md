@@ -52,7 +52,7 @@ A fence without a language falls back to `text`. Use the
 [`code`](#code) shortcode instead when you need the `wide` or
 `featured` variants.
 
-## hero {#hero}
+## `hero` {#hero}
 
 Section-width hero with optional accent on the headline. Wrap any
 additional blocks (code, buttons, pills) inside the body. They render
@@ -85,7 +85,7 @@ inside the hero column.
 
 ---
 
-## pills / pill {#pills--pill}
+## `pills` / `pill` {#pills--pill}
 
 Compact row of highlight tags for hero or section intros. Each `pill`
 takes an optional Iconify icon.
@@ -111,7 +111,7 @@ takes an optional Iconify icon.
 
 ---
 
-## buttons / button {#buttons--button}
+## `buttons` / `button` {#buttons--button}
 
 `buttons` lays out a wrapping row; `button` renders a single link
 styled as a button. Internal hrefs run through `relLangURL`; URLs
@@ -158,7 +158,7 @@ Download buttons pair an OS icon with the current version:
 
 ---
 
-## code {#code}
+## `code` {#code}
 
 A standalone code block with the same chrome as the markdown
 codeblock render hook: language label, copy button, and an optional
@@ -189,7 +189,7 @@ hugo server
 
 ---
 
-## tabs / tab {#tabs--tab}
+## `tabs` / `tab` {#tabs--tab}
 
 Tabbed content panels. `tabs` wraps one or more `tab` shortcodes. The
 first tab is active by default. Inner content is rendered as
@@ -243,7 +243,7 @@ markdown, so fenced code blocks (and nested shortcodes) work.
 
 ---
 
-## accordion / accordion-item {#accordion--accordion-item}
+## `accordion` / `accordion-item` {#accordion--accordion-item}
 
 Collapsible items for FAQs and reference lists. `accordion` wraps one
 or more `accordion-item` shortcodes. Each item is a native `<details>`
@@ -294,7 +294,7 @@ hugo version
 
 ---
 
-## steps / step {#steps--step}
+## `steps` / `step` {#steps--step}
 
 Vertical, numbered onboarding flow. `steps` is the container; each
 `step` is a self-contained card with a "Step N: Title" header and a
@@ -426,7 +426,7 @@ amount of steps can differ per tab.
 
 ---
 
-## screenshot {#screenshot}
+## `screenshot` {#screenshot}
 
 Image with an optional caption. A click opens it full size in a
 lightbox; Esc, the close button or a click on the backdrop closes it.
@@ -449,7 +449,7 @@ screenshot exists.
 
 ---
 
-## carousel / slide {#carousel--slide}
+## `carousel` / `slide` {#carousel--slide}
 
 Several images in one frame. Swipe, scroll, the arrows or the dots
 move between them; a click opens the current image in the lightbox.
@@ -504,7 +504,7 @@ to WebP at build time; SVG and GIF are used as is.
 
 ---
 
-## section {#section}
+## `section` {#section}
 
 Plain container with the standard content width. Use it to group
 sections on shortcode-driven pages and to keep prose centered.
@@ -526,7 +526,7 @@ sections on shortcode-driven pages and to keep prose centered.
 
 ---
 
-## feature-grid / feature-card {#feature-grid--feature-card}
+## `feature-grid` / `feature-card` {#feature-grid--feature-card}
 
 A responsive grid of feature cards. `feature-grid` wraps any number of
 nested `feature-card` shortcodes.
@@ -566,7 +566,7 @@ nested `feature-card` shortcodes.
 
 ---
 
-## icon-grid {#icon-grid}
+## `icon-grid` {#icon-grid}
 
 Tile grid driven by a data file. Useful for integration logos and
 deployment-target overviews. Entries with an Iconify `icon` render as
@@ -594,7 +594,7 @@ inline SVG; entries without one render an empty tile.
 
 ---
 
-## pricing {#pricing}
+## `pricing` {#pricing}
 
 Tiered offer comparison driven by a data file. Renders one card per
 entry; the entry with `featured: true` gets the accent ring and
@@ -629,7 +629,7 @@ ribbon.
 
 ---
 
-## testimonial {#testimonial}
+## `testimonial` {#testimonial}
 
 Quote block with optional author, role, and metrics. Metrics are
 parsed from a `metrics:` list at the end of the body.
@@ -662,7 +662,7 @@ metrics:
 
 ---
 
-## cta {#cta}
+## `cta` {#cta}
 
 A bold call-to-action band with an optional title, optional subtitle
 (the shortcode body), and up to two action buttons.
