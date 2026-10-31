@@ -139,6 +139,17 @@ Zur Abfrage:
 - Läuft der Build offline, hinter einem Proxy oder macht die API
   Probleme, schaltet `lookup = false` die Abfrage ab. Die Version kommt
   dann nur noch aus `params.release.version`.
+- Wer den `getresource`-Cache von Hugo committet, etwa um in der CI
+  dem Rate-Limit von Iconify zu entgehen, bekommt dort durch die Abfrage
+  einmal täglich neue Cache-Dateien. Abhilfe: die Abfrage in
+  `hugo.toml` abschalten und nur in der CI einschalten, so wie es diese
+  Demo-Site macht. Lokal erscheint dann `params.release.version`.
+
+  ```yaml
+  # Woodpecker-Step (GitHub Actions: env)
+  environment:
+    HUGO_PARAMS_RELEASE_LOOKUP: "true"
+  ```
 
 ### Social-Links
 

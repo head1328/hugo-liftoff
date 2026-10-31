@@ -20,6 +20,12 @@ enableEmoji = false
   owner = "head1328"
   name  = "hugo-liftoff"
 
+# Off locally, so builds do not add cache files to the committed
+# getresource cache below. CI enables it via HUGO_PARAMS_RELEASE_LOOKUP.
+[params.release]
+  lookup  = false
+  version = "v0.1.3"
+
 [params.footer]
   address = """
 ACME

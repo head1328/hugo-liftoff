@@ -137,6 +137,17 @@ What to know about the lookup:
 - Turn it off with `lookup = false` if your build runs offline, behind
   a proxy, or if the API gives you trouble. The badge then comes from
   `params.release.version` only.
+- If you commit Hugo's `getresource` cache, e.g. to keep CI clear of
+  the Iconify rate limit, each lookup adds new cache files there once
+  per day. Disable the lookup in `hugo.toml` and enable it in CI only,
+  as this demo site does. Local builds then show
+  `params.release.version`.
+
+  ```yaml
+  # Woodpecker step (GitHub Actions: env)
+  environment:
+    HUGO_PARAMS_RELEASE_LOOKUP: "true"
+  ```
 
 ### Social links
 

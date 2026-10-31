@@ -12,6 +12,8 @@ clone:
 steps:
   - name: build exampleSite
     image: hugomods/hugo:git-0.165.0
+    environment:
+      HUGO_PARAMS_RELEASE_LOOKUP: "true"
     commands:
       # --themesDir resolves the theme by directory name. The repository
       # is named hugo-liftoff while the theme is liftoff, so link it under
@@ -60,6 +62,7 @@ steps:
   - name: build & deploy demo on production
     image: hugomods/hugo:git-0.165.0
     environment:
+      HUGO_PARAMS_RELEASE_LOOKUP: "true"
       DEPLOY_TOKEN:
         from_secret: deploy_token
     when:
