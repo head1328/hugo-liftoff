@@ -30,3 +30,8 @@ home: Start
 powered_by: Erstellt mit
 step: Schritt
 close: Schließen
+carousel: Bildergalerie
+carousel_slide: "{{ .Index }} von {{ .Count }}"
+carousel_prev: Vorheriges Bild
+carousel_next: Nächstes Bild
+carousel_goto: "Bild {{ .Index }} zeigen"

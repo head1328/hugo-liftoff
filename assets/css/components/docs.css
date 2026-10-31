@@ -112,6 +112,14 @@
 
 .docs__toc a:hover { color: var(--color-text); text-decoration: none; }
 
+/* Identifiers in headings: keep the mono face, drop the inline-code box. */
+.docs__toc code {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
 .docs__pagination {
   display: grid;
   gap: var(--space-3);

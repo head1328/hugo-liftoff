@@ -249,6 +249,15 @@ code {
   padding: 0.1em 0.35em;
 }
 
+/* At heading size the inline-code box is too heavy; the mono face is
+   enough to mark an identifier. */
+:is(h1, h2, h3, h4, h5, h6) code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+}
+
 pre {
   background-color: var(--color-code-bg);
   border: 1px solid var(--color-code-border);

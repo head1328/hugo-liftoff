@@ -30,3 +30,8 @@ home: Home
 powered_by: Powered by
 step: Step
 close: Close
+carousel: Image carousel
+carousel_slide: "{{ .Index }} of {{ .Count }}"
+carousel_prev: Previous image
+carousel_next: Next image
+carousel_goto: "Show image {{ .Index }}"
