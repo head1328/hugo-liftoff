@@ -4,6 +4,9 @@ Renders a menu for the given menu ID.
 @context {page} page The current page.
 @context {string} menuID The menu ID.
 
+Entry param `target` (e.g. "_blank") sets the target attribute and
+adds rel="noopener noreferrer".
+
 @example: {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
 */}}
 
@@ -24,6 +27,9 @@ Renders a menu for the given menu ID.
       {{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") }}
     {{- else if $page.HasMenuCurrent .Menu .}}
       {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
+    {{- end }}
+    {{- with .Params.target }}
+      {{- $attrs = merge $attrs (dict "target" . "rel" "noopener noreferrer") }}
     {{- end }}
     {{- $name := .Name }}
     {{- with .Identifier }}
