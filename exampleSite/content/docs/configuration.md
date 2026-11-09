@@ -283,6 +283,19 @@ Prefer `pageRef` over `url` for internal targets. It resolves through
 Hugo's page lookup, so a broken reference fails the build instead of
 shipping a 404. Footer entries with a hard `url` are not checked.
 
+To open an entry in a new tab, set the `target` param. The theme adds
+`rel="noopener noreferrer"` automatically. This works in the main and
+footer menus:
+
+```toml
+[[menus.main]]
+  name   = "Demo"
+  url    = "https://demo.example.com"
+  weight = 25
+  [menus.main.params]
+    target = "_blank"
+```
+
 ## Front matter
 
 Fields the theme reads on top of Hugo's built-ins.

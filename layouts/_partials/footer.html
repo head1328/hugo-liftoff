@@ -30,7 +30,8 @@ Footer. Three regions:
         {{- with .Children }}
           <ul>
             {{- range . }}
-              <li><a href="{{ partial "menu-url.html" . }}">{{ .Name }}</a></li>
+              <li><a href="{{ partial "menu-url.html" . }}"
+                {{- with .Params.target }} target="{{ . }}" rel="noopener noreferrer"{{ end }}>{{ .Name }}</a></li>
             {{- end }}
           </ul>
         {{- end }}

@@ -287,6 +287,19 @@ Hugos Seiten-Lookup, ein Fehler lässt damit den Build scheitern, statt
 einen 404 auszuliefern. Footer-Einträge mit festem `url` werden nicht
 geprüft.
 
+Soll ein Eintrag in einem neuen Tab aufgehen, setz den Param `target`.
+`rel="noopener noreferrer"` ergänzt das Theme selbst. Das klappt im
+Haupt- wie im Footer-Menü:
+
+```toml
+[[menus.main]]
+  name   = "Demo"
+  url    = "https://demo.example.com"
+  weight = 25
+  [menus.main.params]
+    target = "_blank"
+```
+
 ## Front Matter
 
 Felder, die das Theme zusätzlich zu Hugos Standards liest.
