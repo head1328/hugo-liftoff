@@ -101,3 +101,24 @@ steps:
         -H "X-Signature: $$sig"
         -X POST -d @./data.json
         https://webhook.kevinhorst.de/hooks/deploy-liftoff
+
+  - name: smoke tests on production
+    image: ghcr.io/orange-opensource/hurl:8.1.0
+    when:
+      - branch: main
+        event: push
+    commands:
+      - >-
+        hurl --test
+        --variable BASE_URL=https://hugo-liftoff.kevinhorst.de
+        --report-junit ./tests/report.xml
+        ./tests/*.hurl
+
+  - name: junit-reports
+    image: ghcr.io/brainbaking/woodpecker-ascii-junit:main@sha256:78f33e6eac8a3ac6b92c1626528627e187d3d9e14de8d7e18714b8228d9face6
+    settings:
+      path: ./tests/report.xml
+    when:
+      - branch: main
+        event: push
+        status: [success, failure]
