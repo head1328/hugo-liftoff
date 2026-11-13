@@ -1,5 +1,7 @@
 when:
+  - event: pull_request
   - event: push
+    branch: main
   - event: manual
 
 clone:
@@ -27,13 +29,15 @@ steps:
       # the expected name instead of depending on the clone path.
       - mkdir -p /tmp/themes && ln -sfn "$$PWD" /tmp/themes/liftoff
       - hugo --gc --minify --source exampleSite --themesDir /tmp/themes --theme liftoff
+    when:
+      - event: [pull_request, manual]
 
   - name: lint markdown
     image: davidanson/markdownlint-cli2:v0.24.1
     commands:
       - markdownlint-cli2 "**/*.md" "#exampleSite/public" "#public"
     when:
-      - event: push
+      - event: [pull_request, manual]
 
   # Mirrors the shellcheck pre-commit hook, which can be bypassed with
   # --no-verify. Keep the image tag in sync with .pre-commit-config.yaml.
@@ -42,12 +46,12 @@ steps:
     commands:
       # `find -exec ... +` exits 0 when nothing matches, which would make
       # this step pass without checking anything. Fail loudly instead.
-      - scripts=$(find . -name "*.sh" -not -path "./exampleSite/public/*")
+      - scripts=$(find . \( -name "*.sh" -o -name ".bash_aliases" \) -not -path "./exampleSite/public/*")
       - test -n "$$scripts" || { echo "no shell scripts found"; exit 1; }
       - echo "$$scripts"
       - shellcheck $$scripts
     when:
-      - event: push
+      - event: [pull_request, manual]
 
   # Mirrors the ripsecrets pre-commit hook. Installed from the release
   # binary because building it from source needs a Rust toolchain, and
@@ -64,7 +68,7 @@ steps:
         | tar -xz --strip-components=1 -C /usr/local/bin --wildcards "*/ripsecrets"
       - ripsecrets
     when:
-      - event: push
+      - event: [pull_request, manual]
 
   - name: build & deploy demo on production
     image: debian:stable-slim
