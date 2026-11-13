@@ -1,5 +1,10 @@
 # Liftoff
 
+[![CI](https://ci.codeberg.org/api/badges/17661/status.svg?branch=main)](https://ci.codeberg.org/repos/17661)
+[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?logo=renovatebot)](https://codeberg.org/head1328/hugo-liftoff/issues/22)
+[![Hugo](https://img.shields.io/badge/hugo-0.156%2B-ff4088?logo=hugo)](https://gohugo.io)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 A Hugo theme for product-landing, docs, articles and showcase sites.
 Dark UI, code-first hero, designed for get-started style pages.
 
