@@ -10,11 +10,18 @@ clone:
       recursive: false
 
 steps:
+  # Keep HUGO_VERSION in sync with .devcontainer/devcontainer.json.
   - name: build exampleSite
-    image: hugomods/hugo:git-0.165.0
+    image: debian:stable-slim
     environment:
+      HUGO_VERSION: 0.165.0
       HUGO_PARAMS_RELEASE_LOOKUP: "true"
     commands:
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends curl ca-certificates git
+      - >-
+        curl -sSfL
+        "https://github.com/gohugoio/hugo/releases/download/v$${HUGO_VERSION}/hugo_extended_$${HUGO_VERSION}_linux-amd64.tar.gz"
+        | tar -xz -C /usr/local/bin hugo
       # --themesDir resolves the theme by directory name. The repository
       # is named hugo-liftoff while the theme is liftoff, so link it under
       # the expected name instead of depending on the clone path.
@@ -60,8 +67,9 @@ steps:
       - event: push
 
   - name: build & deploy demo on production
-    image: hugomods/hugo:git-0.165.0
+    image: debian:stable-slim
     environment:
+      HUGO_VERSION: 0.165.0
       HUGO_PARAMS_RELEASE_LOOKUP: "true"
       DEPLOY_TOKEN:
         from_secret: deploy_token
@@ -69,9 +77,13 @@ steps:
       - branch: main
         event: push
     commands:
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends curl ca-certificates git openssl
+      - >-
+        curl -sSfL
+        "https://github.com/gohugoio/hugo/releases/download/v$${HUGO_VERSION}/hugo_extended_$${HUGO_VERSION}_linux-amd64.tar.gz"
+        | tar -xz -C /usr/local/bin hugo
       - mkdir -p /tmp/themes && ln -sfn "$$PWD" /tmp/themes/liftoff
       - hugo --gc --minify --source exampleSite --themesDir /tmp/themes --theme liftoff
-      - apk add --no-cache curl openssl
       - tar -C ./exampleSite -czf ${CI_COMMIT_SHA:0:8}.tar.gz public
       - echo -n '{"package":"'"$(base64 -w0 -i ./${CI_COMMIT_SHA:0:8}.tar.gz)"'","package.name":"'"${CI_COMMIT_SHA:0:8}"'","package.environment":"production"}' > data.json
       - sig=$(openssl dgst -sha512 -hmac $$DEPLOY_TOKEN data.json | awk '{print "sha512="$$2}')
