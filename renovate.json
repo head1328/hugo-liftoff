@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":enablePreCommit", ":semanticCommits"],
+  "branchPrefix": "chore/renovate-",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.devcontainer/devcontainer\\.json$/"],
+      "matchStrings": ["\"HUGO_VERSION\":\\s*\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "gohugoio/hugo",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.woodpecker/.+\\.ya?ml$/"],
+      "matchStrings": ["RIPSECRETS_VERSION:\\s*(?<currentValue>\\S+)"],
+      "depNameTemplate": "sirwart/ripsecrets",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["hugomods/hugo"],
+      "versioning": "regex:^git-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
+    {
+      "matchPackageNames": ["hugomods/hugo", "gohugoio/hugo"],
+      "groupName": "hugo"
+    },
+    {
+      "matchPackageNames": ["/shellcheck/", "/markdownlint-cli2/i", "/ripsecrets/"],
+      "groupName": "linters"
+    },
+    {
+      "matchPackageNames": ["renovate/renovate"],
+      "schedule": ["* * * * 1"]
+    }
+  ]
+}
