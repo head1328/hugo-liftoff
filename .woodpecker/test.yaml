@@ -46,7 +46,7 @@ steps:
     commands:
       # `find -exec ... +` exits 0 when nothing matches, which would make
       # this step pass without checking anything. Fail loudly instead.
-      - scripts=$(find . -name "*.sh" -not -path "./exampleSite/public/*")
+      - scripts=$(find . \( -name "*.sh" -o -name ".bash_aliases" \) -not -path "./exampleSite/public/*")
       - test -n "$$scripts" || { echo "no shell scripts found"; exit 1; }
       - echo "$$scripts"
       - shellcheck $$scripts
