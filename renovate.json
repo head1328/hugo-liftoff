@@ -18,15 +18,19 @@
       "depNameTemplate": "sirwart/ripsecrets",
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.woodpecker/.+\\.ya?ml$/"],
+      "matchStrings": ["HUGO_VERSION:\\s*(?<currentValue>\\S+)"],
+      "depNameTemplate": "gohugoio/hugo",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.*)$"
     }
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["hugomods/hugo"],
-      "versioning": "regex:^git-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
-    },
-    {
-      "matchPackageNames": ["hugomods/hugo", "gohugoio/hugo"],
+      "matchPackageNames": ["gohugoio/hugo"],
       "groupName": "hugo"
     },
     {
