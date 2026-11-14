@@ -5,6 +5,44 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-11-14
+
+### Added
+
+- Announcement bar above the header, configured via
+  `params.announcement` with optional icon and link and the variants
+  `accent`, `info` and `warning`. With `dismissible = true` visitors
+  can close it for `dismissFor`, 24 hours by default. A changed text
+  or link shows it again, see
+  [Announcement bar](https://hugo-liftoff.kevinhorst.de/en/docs/configuration/#announcement).
+- `banner` shortcode: a prominent notice box across the width of its
+  container with optional title, icon, variant and button. It works in
+  a hero, a section or plain content, see
+  [banner](https://hugo-liftoff.kevinhorst.de/en/docs/shortcodes/#banner).
+
+### Changed
+
+- The quickstart on the home page and the Get started page installs Go
+  and Git, activates the theme and adds a first page. Linux uses Snap,
+  because distribution packages ship Hugo versions older than 0.156.
+  A Nix tab is new.
+- The demo site and CI build with Hugo 0.170.0. The minimum stays at
+  0.156.
+- Dependencies of the devcontainer, CI and pre-commit hooks are kept up
+  to date by Renovate. CI runs smoke tests against the demo site after
+  every deploy.
+
+### Fixed
+
+- A `hero` in the front matter of `content/_index.md` renders on the
+  home page.
+- Article lists show the pages of their own section, so a section with
+  `type: articles`, such as a changelog, lists its own pages instead of
+  `/articles/`.
+- Blueprints: the changelog blueprint uses `cascade`, the docs-only
+  site no longer claims that a stale `pageRef` fails the build, and the
+  SaaS landing blueprint shows the format of its data files.
+
 ## [0.2.1] - 2026-11-09
 
 ### Added
@@ -116,6 +154,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   English i18n, build-time Iconify icons, and a bilingual demo site
   under `exampleSite/`.
 
+[0.3.0]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.2.1...v0.3.0
 [0.2.1]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.2.0...v0.2.1
 [0.2.0]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.1.3...v0.2.0
 [0.1.3]: https://codeberg.org/head1328/hugo-liftoff/compare/v0.1.2...v0.1.3
