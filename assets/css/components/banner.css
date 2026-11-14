@@ -1,0 +1,131 @@
+/*
+ * Banner: prominent notice box from the banner shortcode. Spans the
+ * width of its container, including inside the hero, where the code
+ * block and tabs are capped.
+ */
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  width: 100%;
+  margin-block: var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  text-align: start;
+}
+
+.hero__inner > .banner {
+  margin-block: 0;
+}
+
+.banner__icon {
+  display: inline-flex;
+  flex: none;
+  font-size: 2rem;
+}
+
+.banner__body {
+  flex: 1;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.banner__title {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.banner__text > :first-child {
+  margin-top: 0;
+}
+
+.banner__text > :last-child {
+  margin-bottom: 0;
+}
+
+.banner__text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.banner__action {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-md);
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--transition-base);
+}
+
+.banner__action:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.banner__action svg {
+  transition: transform var(--transition-base);
+}
+
+.banner__action:hover svg {
+  transform: translateX(2px);
+}
+
+/* Accent: same gradient and ink as the accent announcement bar. */
+.banner--accent {
+  background: linear-gradient(90deg, var(--color-accent-strong), var(--color-secondary));
+  color: var(--color-bg);
+  border-color: transparent;
+}
+
+.banner--info {
+  background:
+    linear-gradient(90deg, var(--color-accent-soft), var(--color-secondary-soft)),
+    var(--color-bg-surface);
+  color: var(--color-text);
+}
+
+.banner--info .banner__icon {
+  color: var(--color-accent);
+}
+
+.banner--info .banner__text {
+  color: var(--color-text-muted);
+}
+
+.banner--info .banner__action:hover {
+  background-color: var(--color-bg-surface-2);
+}
+
+/* Dark ink in both themes: the warning colour is light enough for it. */
+.banner--warning {
+  background-color: var(--color-warning);
+  color: #0b1020;
+  border-color: transparent;
+}
+
+@media (max-width: 640px) {
+  .banner {
+    flex-wrap: wrap;
+    padding: var(--space-5);
+  }
+
+  .banner__body {
+    flex-basis: calc(100% - 2rem - var(--space-5));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner__action,
+  .banner__action svg {
+    transition: none;
+  }
+}

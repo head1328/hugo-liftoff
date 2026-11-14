@@ -13,15 +13,16 @@ ihm einen eigenen Bereich, damit deine Texte davon getrennt bleiben.
 
 ## Front Matter des Bereichs
 
-Lege `content/releases/_index.md` an. Das Artikel-Layout lässt sich
-über einen gleichnamigen Ordner in deinem `layouts/` wiederverwenden.
-Wer keinen Blog hat, lässt die Inhalte einfach unter
-`content/articles/`.
+Lege `content/releases/_index.md` an. `cascade` setzt `type: articles`
+für den Bereich und jedes Release darunter. Beide nutzen damit die
+Artikel-Layouts, ohne dass du ein Template kopieren musst.
 
 ```yaml
 ---
 title: "Releases"
 description: "Jede Änderung an Widget, neueste zuerst."
+cascade:
+  type: articles
 hero:
   title: "Was sich geändert hat,"
   titleAccent: "und wann."
@@ -36,8 +37,10 @@ hero:
 
 ## Eine Seite pro Release
 
-Benenne die Datei nach der Version. Das Datum steuert die Reihenfolge,
-die Tags steuern die Filterung.
+Benenne die Datei nach der Version. Das Datum steuert die Reihenfolge.
+Tags erscheinen auf jeder Release-Karte und bekommen eine eigene Seite
+unter `/tags/`. `/tags/breaking/` listet also jedes Release, bei dem
+man genauer hinschauen muss.
 
 ```yaml
 ---

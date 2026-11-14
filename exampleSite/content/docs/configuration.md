@@ -208,6 +208,40 @@ about four seconds, so shorter intervals cut it off. Once the visitor
 opened the popover, it stops for that tab. Visitors who prefer reduced
 motion never see it.
 
+### Announcement bar {#announcement}
+
+A full-width strip above the header on every page, for release news,
+maintenance windows or a demo notice:
+
+```toml
+[params.announcement]
+  text        = "Liftoff 1.0 is out."      # markdown, required
+  icon        = "mdi:information-outline"  # Iconify identifier, optional
+  linkText    = "Read the release notes"   # optional
+  url         = "/articles/liftoff-1-0/"   # internal path or external URL
+  variant     = "accent"                   # accent, info or warning
+  dismissible = false
+  dismissFor  = "24h"                      # "30m", "24h", "7d" or seconds
+```
+
+`accent` uses the brand gradient, `info` a tinted surface, `warning`
+the warning colour. Internal paths in `url` resolve to the active
+language. Without `text`, nothing is rendered.
+
+With `dismissible = true`, visitors can close the bar. It stays hidden
+for them for `dismissFor`, 24 hours by default, and comes back after
+that. Changing `text` or `url` shows it again right away. A
+dismissible bar needs JavaScript; without it, it does not show at all.
+
+Translate it per language; keys you leave out are taken from the
+top-level table:
+
+```toml
+[languages.de.params.announcement]
+  text     = "Liftoff 1.0 ist da."
+  linkText = "Zu den Release Notes"
+```
+
 ### Social links
 
 Rendered in the footer. `icon` is an Iconify identifier. Internal paths

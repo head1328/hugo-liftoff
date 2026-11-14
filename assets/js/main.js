@@ -193,6 +193,25 @@
   const fundingBanner = document.querySelector("[data-funding-banner]");
   if (fundingBanner && !localStorage.getItem(fundingKey)) fundingBanner.hidden = false;
 
+  /* Announcement bar: a dismissible one is rendered hidden and shown
+     unless the visitor dismissed this exact announcement within the
+     last data-announcement-ttl seconds. */
+
+  const announcementKey = "liftoff.announcement.dismissed";
+  const announcement = document.querySelector("[data-announcement]");
+  if (announcement) {
+    let dismissed = null;
+    try {
+      dismissed = JSON.parse(localStorage.getItem(announcementKey) || "null");
+    } catch (e) {
+      dismissed = null;
+    }
+    const active = dismissed
+      && dismissed.id === announcement.dataset.announcement
+      && Date.now() < dismissed.until;
+    if (!active) announcement.hidden = false;
+  }
+
   /* Sponsor button: optional attention animation. Runs once per tab,
      or again every data-attention-repeat seconds across page loads.
      Stops for the tab once the visitor opened the popover. */
@@ -269,6 +288,18 @@
     if (dismissFunding) {
       localStorage.setItem(fundingKey, "1");
       dismissFunding.closest("[data-funding-banner]").hidden = true;
+      return;
+    }
+
+    const dismissAnnouncement = event.target.closest('[data-action="dismiss-announcement"]');
+    if (dismissAnnouncement) {
+      const bar = dismissAnnouncement.closest("[data-announcement]");
+      const ttl = Number(bar.dataset.announcementTtl || 86400) * 1000;
+      localStorage.setItem(announcementKey, JSON.stringify({
+        id: bar.dataset.announcement,
+        until: Date.now() + ttl,
+      }));
+      bar.hidden = true;
       return;
     }
 

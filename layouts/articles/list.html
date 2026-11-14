@@ -6,8 +6,9 @@
         <h1>{{ .Title }}</h1>
       {{- end }}
       {{ .Content }}
-      {{- $posts := where site.RegularPages "Section" "articles" }}
-      {{- $posts = sort $posts "Date" "desc" }}
+      {{- /* Pages of the current section, so a section with
+             `type: articles` (e.g. releases) lists its own pages. */}}
+      {{- $posts := sort .RegularPagesRecursive "Date" "desc" }}
       {{- $paginator := .Paginate $posts }}
       <div class="article-listing">
         {{- range $paginator.Pages }}

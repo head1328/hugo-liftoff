@@ -100,6 +100,45 @@ Ohne Kreditkarte. Jederzeit kündbar.
 | `data/integrations.yaml` | Die Tools, die deine Kundschaft ohnehin nutzt  |
 | `data/editions.yaml`     | Zwei bis drei Pläne, einer als `featured`      |
 
+Beide Datendateien sind Listen. `integrations.yaml` erwartet pro
+Eintrag einen Namen, ein Iconify-Icon und optional einen Link:
+
+```yaml
+- name: Docker
+  icon: simple-icons:docker
+  url: "https://www.docker.com/"
+- name: Kubernetes
+  icon: simple-icons:kubernetes
+```
+
+`editions.yaml` erwartet einen Eintrag pro Plan:
+
+```yaml
+- name: Starter
+  tagline: Für Nebenprojekte.
+  price: Kostenlos
+  features:
+    - 3 Projekte
+    - Community-Support
+  cta:
+    label: Kostenlos starten
+    url: /signup
+
+- name: Team
+  tagline: Für wachsende Teams.
+  price: 29 EUR/Monat
+  featured: true
+  tag: Am beliebtesten
+  features:
+    - Unbegrenzte Projekte
+    - Audit-Log
+    - Support per E-Mail
+  cta:
+    label: Testphase starten
+    url: /signup?plan=team
+    primary: true
+```
+
 > [!TIP]
 > Der CTA wiederholt die Primäraktion aus dem Hero mit Absicht. Wer die
 > ganze Seite gelesen hat, soll zum Handeln nicht zurückscrollen müssen.

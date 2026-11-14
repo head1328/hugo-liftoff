@@ -211,6 +211,42 @@ Sekunden, kürzere Abstände schneiden ihn ab. Hat jemand das Popover
 geöffnet, ist im selben Tab Schluss. Wer reduzierte Bewegung eingestellt
 hat, sieht die Animation nie.
 
+### Ankündigungsleiste {#announcement}
+
+Ein Streifen über die volle Breite oberhalb des Headers, auf jeder
+Seite. Gedacht für Release-News, Wartungsfenster oder den Hinweis auf
+eine Demo:
+
+```toml
+[params.announcement]
+  text        = "Liftoff 1.0 is out."      # Markdown, Pflicht
+  icon        = "mdi:information-outline"  # Iconify-Bezeichner, optional
+  linkText    = "Read the release notes"   # optional
+  url         = "/articles/liftoff-1-0/"   # interner Pfad oder externe URL
+  variant     = "accent"                   # accent, info oder warning
+  dismissible = false
+  dismissFor  = "24h"                      # "30m", "24h", "7d" oder Sekunden
+```
+
+`accent` nutzt den Marken-Verlauf, `info` eine leicht getönte Fläche,
+`warning` die Warnfarbe. Interne Pfade in `url` zeigen auf die aktive
+Sprache. Ohne `text` wird nichts ausgegeben.
+
+Mit `dismissible = true` lässt sich die Leiste wegklicken. Sie bleibt
+dann für die Dauer von `dismissFor` verborgen, standardmäßig 24
+Stunden, und taucht danach wieder auf. Ändern sich `text` oder `url`,
+erscheint sie sofort wieder. Eine wegklickbare Leiste braucht JavaScript,
+ohne JavaScript wird sie gar nicht angezeigt.
+
+Pro Sprache übersetzen, nicht gesetzte Schlüssel kommen aus der
+obersten Ebene:
+
+```toml
+[languages.de.params.announcement]
+  text     = "Liftoff 1.0 ist da."
+  linkText = "Zu den Release Notes"
+```
+
 ### Social-Links
 
 Erscheinen im Footer. `icon` ist ein Iconify-Bezeichner. Interne Pfade
