@@ -72,9 +72,9 @@ rm -r content/articles content/blueprints
 ```
 
 > [!WARNING]
-> Footer entries use a hard `url`, so Hugo will not warn you when the
-> target disappears. Main-menu entries use `pageRef` and do fail the
-> build, which is the behaviour you want. Grep your config for both.
+> Hugo does not warn about either kind. A stale `url` leads to a 404,
+> a stale `pageRef` renders a menu item without a link. Grep your
+> config for both.
 
 ## Ordering the docs
 

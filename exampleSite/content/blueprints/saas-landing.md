@@ -99,6 +99,45 @@ No credit card. Cancel whenever.
 | `data/integrations.yaml`| The tools your customers already run        |
 | `data/editions.yaml`    | Two or three plans, one marked `featured`   |
 
+Both data files are lists. `integrations.yaml` takes a name, an
+Iconify icon and an optional link per entry:
+
+```yaml
+- name: Docker
+  icon: simple-icons:docker
+  url: "https://www.docker.com/"
+- name: Kubernetes
+  icon: simple-icons:kubernetes
+```
+
+`editions.yaml` takes one entry per plan:
+
+```yaml
+- name: Starter
+  tagline: For side projects.
+  price: Free
+  features:
+    - 3 projects
+    - Community support
+  cta:
+    label: Start free
+    url: /signup
+
+- name: Team
+  tagline: For growing teams.
+  price: 29 EUR/month
+  featured: true
+  tag: Most popular
+  features:
+    - Unlimited projects
+    - Audit log
+    - Email support
+  cta:
+    label: Start trial
+    url: /signup?plan=team
+    primary: true
+```
+
 > [!TIP]
 > The CTA repeats the hero's primary action on purpose. Visitors who
 > scrolled the whole page should not have to scroll back up to act.

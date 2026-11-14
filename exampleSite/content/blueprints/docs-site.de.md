@@ -73,10 +73,9 @@ rm -r content/articles content/blueprints
 ```
 
 > [!WARNING]
-> Footer-Einträge nutzen ein festes `url`, Hugo warnt also nicht, wenn
-> das Ziel verschwindet. Hauptmenü-Einträge mit `pageRef` lassen den
-> Build scheitern, und genau das ist erwünscht. Prüfe die Konfiguration
-> auf beide Varianten.
+> Hugo warnt bei keiner der beiden Varianten. Ein veraltetes `url`
+> führt ins 404, ein veraltetes `pageRef` erzeugt einen Menüpunkt ohne
+> Link. Prüfe die Konfiguration auf beide.
 
 ## Reihenfolge der Doku
 

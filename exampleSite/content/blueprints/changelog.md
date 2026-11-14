@@ -13,14 +13,16 @@ section so your actual writing stays separate.
 
 ## Section front matter
 
-Create `content/releases/_index.md`. The articles layout is reused by
-matching the section name in your own `layouts/` folder, or by keeping
-the content under `content/articles/` if you have no blog.
+Create `content/releases/_index.md`. `cascade` sets `type: articles`
+on the section and every release below it, so both reuse the articles
+layouts without copying a template.
 
 ```yaml
 ---
 title: "Releases"
 description: "Every change to Widget, newest first."
+cascade:
+  type: articles
 hero:
   title: "What changed, and"
   titleAccent: "when it changed."
@@ -35,8 +37,9 @@ hero:
 
 ## One page per release
 
-Name the file after the version. The date drives the ordering, the tags
-drive the filtering.
+Name the file after the version. The date drives the ordering. Tags
+show up on every release card and get their own page under `/tags/`,
+so `/tags/breaking/` lists every release that needs attention.
 
 ```yaml
 ---
