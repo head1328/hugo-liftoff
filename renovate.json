@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":enablePreCommit", ":semanticCommits"],
-  "branchPrefix": "chore/renovate-",
+  "extends": ["local>head1328/renovate-config"],
   "customManagers": [
     {
       "customType": "regex",
@@ -32,14 +31,6 @@
     {
       "matchPackageNames": ["gohugoio/hugo"],
       "groupName": "hugo"
-    },
-    {
-      "matchPackageNames": ["/shellcheck/", "/markdownlint-cli2/i", "/ripsecrets/"],
-      "groupName": "linters"
-    },
-    {
-      "matchPackageNames": ["renovate/renovate"],
-      "schedule": ["* * * * 1"]
     }
   ]
 }
