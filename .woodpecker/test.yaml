@@ -16,7 +16,7 @@ steps:
   - name: build exampleSite
     image: debian:stable-slim
     environment:
-      HUGO_VERSION: 0.165.0
+      HUGO_VERSION: 0.170.0
       HUGO_PARAMS_RELEASE_LOOKUP: "true"
     commands:
       - apt-get update -qq && apt-get install -y -qq --no-install-recommends curl ca-certificates git
@@ -73,7 +73,7 @@ steps:
   - name: build & deploy demo on production
     image: debian:stable-slim
     environment:
-      HUGO_VERSION: 0.165.0
+      HUGO_VERSION: 0.170.0
       HUGO_PARAMS_RELEASE_LOOKUP: "true"
       DEPLOY_TOKEN:
         from_secret: deploy_token
