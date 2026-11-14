@@ -30,6 +30,11 @@ enableEmoji = false
   attention       = "heartbeat"
   attentionRepeat = "10s"
 
+[params.announcement]
+  icon        = "mdi:information-outline"
+  text        = "This is the Liftoff demo site. All content is sample material."
+  dismissible = true
+
 [params.footer]
   address = """
 ACME
@@ -45,7 +50,7 @@ Anytown, Germany
 [[params.social]]
   icon = "simple-icons:mastodon"
   name = "Mastodon"
-  url  = "https://chaos.social/@head1328"
+  url  = "https://chaos.social/@head"
 
 [[params.social]]
   icon = "mdi:rss"
@@ -68,6 +73,8 @@ Anytown, Germany
       description = "Ein Hugo-Theme für Produkt-Landingpages, Docs, Artikel und Showcase."
       tagline = "Minimal, ausdrucksstark, startklar. Produktseiten mit Hugo."
       copyrightSuffix = "Alle Rechte vorbehalten."
+      [languages.de.params.announcement]
+        text = "Live-Demo des Liftoff-Themes. Alle Inhalte sind Beispielmaterial."
 
 [menus]
   [[menus.main]]

@@ -702,3 +702,40 @@ Pick a blueprint and adapt it. Five minutes from clone to deploy.
 {{< cta title="Ready to scale?" primary="Get started|/get-started" secondary="Read the docs|/docs" >}}
 Pick a blueprint and adapt it. Five minutes from clone to deploy.
 {{< /cta >}}
+
+---
+
+## `banner` {#banner}
+
+A prominent notice box that spans the width of its container. Place it
+anywhere: inside a hero, a section or plain page content. For a notice
+on every page, use the
+[announcement bar](/docs/configuration/#announcement) instead.
+
+| Param     | Type        | Description                                               |
+|-----------|-------------|-----------------------------------------------------------|
+| `title`   | string      | Optional heading.                                         |
+| `icon`    | string      | Optional Iconify identifier.                              |
+| `variant` | string      | `accent` (default), `info` or `warning`.                  |
+| `button`  | `label\|url` | Optional action, pipe-separated.                         |
+| _body_    | markdown    | Text below the title.                                     |
+
+```markdown
+{{</* banner title="Liftoff 1.0 is out" icon="mdi:rocket-launch-outline" button="Release notes|/articles" */>}}
+Announcement bar, banner shortcode and a faster build. Upgrade in one
+command.
+{{</* /banner */>}}
+```
+
+{{< banner title="Liftoff 1.0 is out" icon="mdi:rocket-launch-outline" button="Release notes|/articles" >}}
+Announcement bar, banner shortcode and a faster build. Upgrade in one
+command.
+{{< /banner >}}
+
+{{< banner title="Heads-up" icon="mdi:information-outline" variant="info" >}}
+The `info` variant sits quietly on a tinted surface.
+{{< /banner >}}
+
+{{< banner title="Breaking change" icon="mdi:alert-outline" variant="warning" button="Migration guide|/docs" >}}
+The `warning` variant is for things readers must not miss.
+{{< /banner >}}

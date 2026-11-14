@@ -1,0 +1,67 @@
+{{- /*
+Site-wide announcement bar above the header. Rendered on every page
+when params.announcement.text is set.
+
+  [params.announcement]
+    text        = "..."                      # markdown, required
+    icon        = "mdi:information-outline"  # Iconify identifier, optional
+    linkText    = "..."                      # optional, needs url
+    url         = "..."                      # internal path or external URL
+    variant     = "accent"                   # accent, info or warning
+    dismissible = false
+    dismissFor  = "24h"                      # "30m", "24h", "7d" or seconds
+
+A dismissible bar is rendered hidden and shown by main.js unless the
+visitor dismissed it within the last dismissFor. The stored entry
+holds a hash of text and url, so a changed announcement shows again.
+*/ -}}
+{{- with site.Params.announcement }}
+  {{- $cfg := . -}}
+  {{- if .text }}
+    {{- $variant := .variant | default "accent" -}}
+    {{- if not (in (slice "accent" "info" "warning") $variant) }}
+      {{- warnf "liftoff: unknown announcement variant %q, falling back to accent" $variant -}}
+      {{- $variant = "accent" -}}
+    {{- end }}
+    {{- $dismissible := in (slice true "true") .dismissible -}}
+    {{- $id := printf "%s|%s" .text (.url | default "") | hash.FNV32a -}}
+    {{- /* Go durations plus a "d" suffix for days; a bare number is
+           seconds. */}}
+    {{- $ttl := 86400 -}}
+    {{- with .dismissFor }}
+      {{- $value := string . -}}
+      {{- if findRE `^[0-9]+$` $value }}{{ $value = printf "%ss" $value }}{{ end -}}
+      {{- with findRESubmatch `^([0-9]+)d$` $value }}{{ $value = printf "%dh" (mul (int (index (index . 0) 1)) 24) }}{{ end -}}
+      {{- with try (time.ParseDuration $value) }}
+        {{- if .Err }}
+          {{- warnf "liftoff: params.announcement.dismissFor %q is not a duration like \"24h\" or \"7d\", using 24h" $cfg.dismissFor -}}
+        {{- else }}
+          {{- $ttl = int .Value.Seconds -}}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    <div class="announcement announcement--{{ $variant }}"
+      {{- if $dismissible }} data-announcement="{{ $id }}" data-announcement-ttl="{{ $ttl }}" hidden{{ end }}>
+      <div class="container announcement__inner">
+        {{- with .icon }}{{ partial "icon.html" . }}{{ end }}
+        <p class="announcement__text">
+          {{ .text | markdownify }}
+          {{- with .url }}
+            {{- $url := . -}}
+            {{- $external := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") -}}
+            {{- $href := cond $external $url ($url | relLangURL) }}
+            <a class="announcement__link" href="{{ $href }}"{{ if $external }} rel="noopener"{{ end }}>
+              {{- $cfg.linkText | default $href -}}
+              {{ partial "icon.html" "mdi:arrow-right" }}
+            </a>
+          {{- end }}
+        </p>
+        {{- if $dismissible }}
+          <button class="announcement__close" type="button" data-action="dismiss-announcement" aria-label="{{ i18n "dismiss" }}">
+            {{- partial "icon.html" "mdi:close" -}}
+          </button>
+        {{- end }}
+      </div>
+    </div>
+  {{- end }}
+{{- end }}

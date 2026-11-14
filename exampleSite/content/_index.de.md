@@ -15,18 +15,22 @@ description: "Ein Hugo-Theme für Produkt-Landingpages, Docs, Artikel und Showca
 {{< tabs featured="true" >}}
 {{< tab name="macOS" icon="simple-icons:apple" >}}
 ```zsh
-brew install hugo
+brew install hugo go git
 hugo new site mysite && cd mysite
 hugo mod init example.com/mysite
+echo 'theme = "codeberg.org/head1328/hugo-liftoff"' >> hugo.toml
 hugo mod get codeberg.org/head1328/hugo-liftoff
 hugo server
 ```
 {{< /tab >}}
 {{< tab name="Linux" icon="simple-icons:linux" >}}
 ```bash
-sudo apt install hugo
+sudo snap install hugo
+sudo snap install go --classic
+sudo apt install git
 hugo new site mysite && cd mysite
 hugo mod init example.com/mysite
+echo 'theme = "codeberg.org/head1328/hugo-liftoff"' >> hugo.toml
 hugo mod get codeberg.org/head1328/hugo-liftoff
 hugo server
 ```
@@ -34,8 +38,22 @@ hugo server
 {{< tab name="Windows" icon="mdi:microsoft-windows" >}}
 ```powershell
 winget install Hugo.Hugo.Extended
+winget install GoLang.Go
+winget install Git.Git
+$env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [Environment]::GetEnvironmentVariable("Path", "User")
 hugo new site mysite; cd mysite
 hugo mod init example.com/mysite
+Add-Content hugo.toml 'theme = "codeberg.org/head1328/hugo-liftoff"'
+hugo mod get codeberg.org/head1328/hugo-liftoff
+hugo server
+```
+{{< /tab >}}
+{{< tab name="Nix" icon="simple-icons:nixos" >}}
+```bash
+nix profile add nixpkgs#hugo nixpkgs#go nixpkgs#git
+hugo new site mysite && cd mysite
+hugo mod init example.com/mysite
+echo 'theme = "codeberg.org/head1328/hugo-liftoff"' >> hugo.toml
 hugo mod get codeberg.org/head1328/hugo-liftoff
 hugo server
 ```

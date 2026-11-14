@@ -1,0 +1,42 @@
+{{- /*
+Full-width notice box that can be placed anywhere: inside a hero, a
+section or plain page content.
+
+  {{< banner title="Demo site" icon="mdi:information-outline" button="Get the theme|https://codeberg.org/..." >}}
+  Everything here is sample content.
+  {{< /banner >}}
+
+Parameters:
+  title    optional heading
+  icon     optional Iconify identifier
+  variant  accent (default), info or warning
+  button   optional "label|url"; internal paths resolve per language
+*/ -}}
+{{- $variant := .Get "variant" | default "accent" -}}
+{{- if not (in (slice "accent" "info" "warning") $variant) }}
+  {{- warnf "liftoff: unknown banner variant %q in %s, falling back to accent" $variant .Page.File.Path -}}
+  {{- $variant = "accent" -}}
+{{- end }}
+{{- $button := split (.Get "button" | default "") "|" -}}
+<aside class="banner banner--{{ $variant }}">
+  {{- with .Get "icon" }}
+    <div class="banner__icon" aria-hidden="true">{{ partial "icon.html" . }}</div>
+  {{- end }}
+  <div class="banner__body">
+    {{- with .Get "title" }}
+      <p class="banner__title">{{ . }}</p>
+    {{- end }}
+    {{- with .Inner }}
+      <div class="banner__text">{{ . | $.Page.RenderString (dict "display" "block") }}</div>
+    {{- end }}
+  </div>
+  {{- with index $button 0 }}
+    {{- $url := index $button 1 | default "#" -}}
+    {{- $external := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") -}}
+    {{- $href := cond $external $url ($url | relLangURL) }}
+    <a class="banner__action" href="{{ $href }}"{{ if $external }} rel="noopener"{{ end }}>
+      {{- . -}}
+      {{ partial "icon.html" "mdi:arrow-right" }}
+    </a>
+  {{- end }}
+</aside>

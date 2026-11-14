@@ -711,3 +711,40 @@ Wähle ein Blueprint und passe es an. Fünf Minuten vom Klonen zum Deploy.
 {{< cta title="Bereit, zu skalieren?" primary="Loslegen|/get-started" secondary="Zur Doku|/docs" >}}
 Wähle ein Blueprint und passe es an. Fünf Minuten vom Klonen zum Deploy.
 {{< /cta >}}
+
+---
+
+## `banner` {#banner}
+
+Auffälliger Hinweiskasten über die volle Breite seines Containers.
+Lässt sich überall platzieren: im Hero, in einer Section oder im
+normalen Seiteninhalt. Für einen Hinweis auf jeder Seite ist die
+[Ankündigungsleiste](/docs/configuration/#announcement) gedacht.
+
+| Param     | Typ          | Beschreibung                                             |
+|-----------|--------------|----------------------------------------------------------|
+| `title`   | string       | Optionale Überschrift.                                   |
+| `icon`    | string       | Optionaler Iconify-Bezeichner.                           |
+| `variant` | string       | `accent` (Standard), `info` oder `warning`.              |
+| `button`  | `label\|url` | Optionale Aktion, pipe-separiert.                        |
+| _body_    | markdown     | Text unter der Überschrift.                              |
+
+```markdown
+{{</* banner title="Liftoff 1.0 ist da" icon="mdi:rocket-launch-outline" button="Release Notes|/articles" */>}}
+Ankündigungsleiste, Banner-Shortcode und ein schnellerer Build. Das
+Upgrade ist ein einziger Befehl.
+{{</* /banner */>}}
+```
+
+{{< banner title="Liftoff 1.0 ist da" icon="mdi:rocket-launch-outline" button="Release Notes|/articles" >}}
+Ankündigungsleiste, Banner-Shortcode und ein schnellerer Build. Das
+Upgrade ist ein einziger Befehl.
+{{< /banner >}}
+
+{{< banner title="Gut zu wissen" icon="mdi:information-outline" variant="info" >}}
+Die Variante `info` hält sich auf einer leicht getönten Fläche zurück.
+{{< /banner >}}
+
+{{< banner title="Breaking Change" icon="mdi:alert-outline" variant="warning" button="Migrationsanleitung|/docs" >}}
+Die Variante `warning` ist für alles, was niemand übersehen darf.
+{{< /banner >}}
